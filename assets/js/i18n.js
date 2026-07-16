@@ -1,11 +1,13 @@
 (() => {
       const translations = {
-        "Quality Tools — Homepage Demo": "质量工具平台 — 首页演示",
+        "Blendex Labs | Practical Quality Engineering Tools": "Blendex Labs | 实用质量工程工具",
+        "Blendex Labs": "Blendex Labs",
         "Products": "产品",
         "Learning & support": "学习与支持",
+        "Learn": "学习",
         "LEARN": "学习",
         "SUPPORT": "支持",
-        "Quality Tools Academy": "质量工具学院",
+        "Blendex Labs Academy": "Blendex Labs 学院",
         "Trainings": "培训课程",
         "Help Center": "帮助中心",
         "Practical resources for quality professionals": "为质量专业人员提供的实用学习资源",
@@ -73,7 +75,7 @@
         "AI guidance is for engineering reference and does not replace formal engineering approval.": "AI 内容仅供工程参考，不能替代正式工程审批。"
       };
 
-      const titleEnglish = "Quality Tools — Homepage Demo";
+      const titleEnglish = "Blendex Labs | Practical Quality Engineering Tools";
       const switchButton = document.getElementById("languageBtn");
       const translatableNodes = [];
 
