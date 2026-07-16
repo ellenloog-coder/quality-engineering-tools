@@ -1,88 +1,156 @@
-const productsBtn = document.getElementById('productsBtn');
-    const learningBtn = document.getElementById('learningBtn');
-    const productsMenu = document.getElementById('megaMenu');
-    const learningMenu = document.getElementById('learningMenu');
-    const overlay = document.getElementById('overlay');
+const productsBtn = document.getElementById("productsBtn");
+const learningBtn = document.getElementById("learningBtn");
+const productsMenu = document.getElementById("megaMenu");
+const learningMenu = document.getElementById("learningMenu");
+const overlay = document.getElementById("overlay");
+const navWrappers = Array.from(document.querySelectorAll(".nav-dropdown"));
+const finePointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+let closeTimer = null;
+let activeWrapper = null;
 
-    function closeMenus(){
-      productsBtn.classList.remove('active');
-      learningBtn.classList.remove('active');
-      productsMenu.classList.remove('open');
-      learningMenu.classList.remove('open');
-      overlay.classList.remove('open');
+function cancelClose() {
+  clearTimeout(closeTimer);
+  closeTimer = null;
+}
 
-      productsBtn.setAttribute('aria-expanded', 'false');
-      learningBtn.setAttribute('aria-expanded', 'false');
-      productsMenu.setAttribute('aria-hidden', 'true');
-      learningMenu.setAttribute('aria-hidden', 'true');
+function menuParts(wrapper) {
+  const trigger = wrapper.querySelector(".nav-dropdown-trigger");
+  const panel = wrapper.querySelector(".mega-menu");
+  return { trigger, panel };
+}
+
+function closeMenu(wrapper) {
+  if (!wrapper) return;
+  const { trigger, panel } = menuParts(wrapper);
+  wrapper.classList.remove("active");
+  trigger.classList.remove("active");
+  trigger.setAttribute("aria-expanded", "false");
+  panel.classList.remove("open");
+  panel.setAttribute("aria-hidden", "true");
+  panel.hidden = true;
+  if (activeWrapper === wrapper) activeWrapper = null;
+  if (!activeWrapper) overlay.classList.remove("open");
+}
+
+function closeMenus() {
+  cancelClose();
+  navWrappers.forEach(closeMenu);
+}
+
+function openMenu(wrapper) {
+  if (!wrapper) return;
+  cancelClose();
+  navWrappers.forEach(item => {
+    if (item !== wrapper) closeMenu(item);
+  });
+  const { trigger, panel } = menuParts(wrapper);
+  activeWrapper = wrapper;
+  wrapper.classList.add("active");
+  trigger.classList.add("active");
+  trigger.setAttribute("aria-expanded", "true");
+  panel.hidden = false;
+  panel.setAttribute("aria-hidden", "false");
+  panel.classList.add("open");
+  overlay.classList.add("open");
+}
+
+function toggleMenu(wrapper) {
+  const { panel } = menuParts(wrapper);
+  if (panel.classList.contains("open")) closeMenus();
+  else openMenu(wrapper);
+}
+
+function scheduleClose(wrapper) {
+  cancelClose();
+  closeTimer = setTimeout(() => {
+    closeMenu(wrapper);
+  }, 200);
+}
+
+function isDesktopHover() {
+  return finePointerQuery.matches;
+}
+
+navWrappers.forEach(wrapper => {
+  const { trigger, panel } = menuParts(wrapper);
+
+  wrapper.addEventListener("mouseenter", () => {
+    if (!isDesktopHover()) return;
+    cancelClose();
+    openMenu(wrapper);
+  });
+
+  wrapper.addEventListener("mouseleave", () => {
+    if (!isDesktopHover()) return;
+    scheduleClose(wrapper);
+  });
+
+  wrapper.addEventListener("focusin", () => {
+    if (!isDesktopHover()) return;
+    cancelClose();
+    openMenu(wrapper);
+  });
+
+  wrapper.addEventListener("focusout", event => {
+    if (!isDesktopHover()) return;
+    if (wrapper.contains(event.relatedTarget)) return;
+    scheduleClose(wrapper);
+  });
+
+  trigger.addEventListener("click", event => {
+    event.stopPropagation();
+    if (isDesktopHover()) {
+      openMenu(wrapper);
+    } else {
+      toggleMenu(wrapper);
     }
+  });
 
-    function toggleMenu(type){
-      const isProducts = type === 'products';
-      const button = isProducts ? productsBtn : learningBtn;
-      const menu = isProducts ? productsMenu : learningMenu;
-      const wasOpen = menu.classList.contains('open');
+  panel.addEventListener("click", event => {
+    event.stopPropagation();
+    if (event.target.closest("a")) closeMenus();
+  });
+});
 
-      closeMenus();
+overlay.addEventListener("click", closeMenus);
 
-      if(!wasOpen){
-        button.classList.add('active');
-        menu.classList.add('open');
-        overlay.classList.add('open');
-        button.setAttribute('aria-expanded', 'true');
-        menu.setAttribute('aria-hidden', 'false');
-      }
-    }
+document.addEventListener("click", event => {
+  if (!event.target.closest(".nav-dropdown")) closeMenus();
+});
 
-    productsBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      toggleMenu('products');
-    });
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeMenus();
+});
 
-    learningBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      toggleMenu('learning');
-    });
+window.addEventListener("scroll", closeMenus, { passive: true });
 
-    overlay.addEventListener('click', closeMenus);
+finePointerQuery.addEventListener("change", closeMenus);
 
-    document.addEventListener('keydown', e => {
-      if(e.key === 'Escape') closeMenus();
-    });
+const aiPanel = document.getElementById("aiAssistantPanel");
+const aiFloatingButton = document.getElementById("aiFloatingButton");
 
-    productsMenu.addEventListener('click', e => e.stopPropagation());
-    learningMenu.addEventListener('click', e => e.stopPropagation());
+function openAiAssistant() {
+  closeMenus();
+  aiPanel.classList.add("open");
+  aiPanel.setAttribute("aria-hidden", "false");
+  aiFloatingButton.setAttribute("aria-expanded", "true");
+  window.dispatchEvent(new CustomEvent("qualitytools:aiopen"));
+  setTimeout(() => document.getElementById("aiInput").focus(), 120);
+}
 
-    // Open Products by default for demo purposes on desktop.
-    if (window.innerWidth > 760) {
-      setTimeout(() => toggleMenu('products'), 350);
-    }
+function closeAiAssistant() {
+  aiPanel.classList.remove("open");
+  aiPanel.setAttribute("aria-hidden", "true");
+  aiFloatingButton.setAttribute("aria-expanded", "false");
+}
 
-    const aiPanel = document.getElementById('aiAssistantPanel');
-    const aiFloatingButton = document.getElementById('aiFloatingButton');
+aiFloatingButton.addEventListener("click", () => {
+  aiPanel.classList.contains("open") ? closeAiAssistant() : openAiAssistant();
+});
 
-    function openAiAssistant(){
-      closeMenus();
-      aiPanel.classList.add('open');
-      aiPanel.setAttribute('aria-hidden','false');
-      aiFloatingButton.setAttribute('aria-expanded','true');
-      window.dispatchEvent(new CustomEvent('qualitytools:aiopen'));
-      setTimeout(() => document.getElementById('aiInput').focus(), 120);
-    }
-
-    function closeAiAssistant(){
-      aiPanel.classList.remove('open');
-      aiPanel.setAttribute('aria-hidden','true');
-      aiFloatingButton.setAttribute('aria-expanded','false');
-    }
-
-    aiFloatingButton.addEventListener('click', () => {
-      aiPanel.classList.contains('open') ? closeAiAssistant() : openAiAssistant();
-    });
-
-    document.getElementById('aiCloseButton').addEventListener('click', closeAiAssistant);
-    document.getElementById('openAiMenu').addEventListener('click', event => {
-      event.preventDefault();
-      openAiAssistant();
-    });
-    document.getElementById('openAiCard').addEventListener('click', openAiAssistant);
+document.getElementById("aiCloseButton").addEventListener("click", closeAiAssistant);
+document.getElementById("openAiMenu").addEventListener("click", event => {
+  event.preventDefault();
+  openAiAssistant();
+});
+document.getElementById("openAiCard").addEventListener("click", openAiAssistant);

@@ -64,6 +64,12 @@
       align-items:center;
       gap:8px;
       flex:1;
+      min-width:0;
+    }
+    .nav-dropdown{
+      position:relative;
+      display:flex;
+      align-items:center;
     }
     .nav-item{
       border:0;background:transparent;
@@ -109,21 +115,12 @@
     }
 
     /* Mega menu */
-    .mega-wrap{
-      position:fixed;
-      left:0;
-      right:0;
-      top:76px;
-      height:0;
-      z-index:45;
-      pointer-events:none;
-    }
     .mega-menu{
-      position:absolute;
-      top:0;
+      position:fixed;
+      top:76px;
       left:50%;
       width:min(1320px, calc(100% - 70px));
-      margin:10px 0 0;
+      margin:0;
       background:#fff;
       border:1px solid #e7e8ec;
       border-radius:0 0 22px 22px;
@@ -133,6 +130,7 @@
       transform:translate(-50%,-10px) scale(.99);
       transition:opacity .2s ease, transform .2s ease;
       pointer-events:none;
+      z-index:45;
     }
     .mega-menu.open{
       opacity:1;
@@ -391,6 +389,10 @@
       position:fixed;inset:76px 0 0;background:rgba(245,246,248,.78);
       backdrop-filter:blur(4px);
       opacity:0;pointer-events:none;transition:.2s ease;z-index:40;
+    }
+    .overlay.open{
+      opacity:1;
+      pointer-events:auto;
     }
     .ai-beta{
       display:inline-flex;
@@ -876,7 +878,9 @@
     }
     @media (max-width:760px){
       .header-inner{width:calc(100% - 24px)}
-      .nav .nav-item:not(:first-child),.header-actions .icon-btn{display:none}
+      .nav{gap:4px}
+      .nav-item{padding:11px 10px;font-size:13px}
+      .header-actions .icon-btn,.header-actions .primary-btn{display:none}
       .lang-switch{min-width:52px;height:36px;padding:0 10px}
       .brand-copy span{display:none}
       .primary-btn{padding:11px 16px}
