@@ -62,12 +62,15 @@
         "Choose the right tool, understand results, and plan next actions": "帮助选择合适工具、理解结果并规划下一步行动",
         "Helps users select the right analysis, understand results, and identify practical next engineering actions.": "帮助用户选择合适的分析方法、理解结果，并识别可执行的下一步工程行动。",
         "AI assistant ready": "AI 助手已就绪",
+        "AI assistant is ready": "AI 助手已就绪",
+        "Please avoid entering customer, supplier, product, or other sensitive information.": "请避免输入客户、供应商、产品名称或其他敏感信息。",
         "Only structured, non-sensitive summary information is sent to the AI service. Analysis files, raw data, supplier names, and product names are not shared automatically.": "仅将结构化、非敏感的汇总信息发送至 AI 服务。分析文件、原始数据、供应商名称和产品名称不会被自动发送。",
         "Hello. I can help you choose a quality tool, understand analysis results, and identify practical next steps. Please avoid entering confidential product or supplier information.": "你好。我可以帮助你选择合适的质量工具、理解分析结果，并识别下一步工程行动。请不要输入机密的产品或供应商信息。",
         "Which tool should I use?": "我应该使用哪个工具？",
         "Explain Cpk": "解释一下 Cpk",
         "When should I use MSA?": "什么时候应该做 MSA？",
-        "AI guidance is for engineering reference. Deterministic tool calculations remain the source of statistical results.": "AI 内容仅供工程参考；统计结果仍以确定性计算工具为准。"
+        "AI guidance is for engineering reference. Deterministic tool calculations remain the source of statistical results.": "AI 内容仅供工程参考；统计结果仍以确定性计算工具为准。",
+        "AI guidance is for engineering reference and does not replace formal engineering approval.": "AI 内容仅供工程参考，不能替代正式工程审批。"
       };
 
       const titleEnglish = "Quality Tools — Homepage Demo";

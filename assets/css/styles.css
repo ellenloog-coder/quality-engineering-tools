@@ -551,126 +551,6 @@
       font-size:12px;
       line-height:1.45;
     }
-    .ai-mode-grid{
-      display:grid;
-      gap:10px;
-    }
-    .ai-mode-card{
-      width:100%;
-      min-height:108px;
-      border:1px solid #e3e5eb;
-      border-radius:14px;
-      background:#fff;
-      padding:14px;
-      text-align:left;
-      cursor:pointer;
-      transition:.18s ease;
-    }
-    .ai-mode-card:hover{
-      border-color:#928dff;
-      box-shadow:0 12px 28px rgba(28,34,52,.08);
-      transform:translateY(-1px);
-    }
-    .ai-mode-kicker{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:30px;
-      height:30px;
-      margin-bottom:10px;
-      border-radius:9px;
-      background:#f0edff;
-      color:#5b54c8;
-      font-weight:850;
-      font-size:12px;
-    }
-    .ai-flow-head{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:14px;
-    }
-    .ai-back{
-      border:1px solid #dddfe5;
-      background:#fff;
-      color:#4f555e;
-      border-radius:10px;
-      padding:7px 9px;
-      font-size:12px;
-      font-weight:750;
-      cursor:pointer;
-      white-space:nowrap;
-    }
-    .ai-option-grid{
-      display:grid;
-      gap:8px;
-      margin-top:12px;
-    }
-    .ai-option{
-      width:100%;
-      border:1px solid #e1e3e8;
-      border-radius:12px;
-      background:#fff;
-      padding:11px 12px;
-      text-align:left;
-      cursor:pointer;
-      font-size:13px;
-      font-weight:720;
-      color:#242830;
-    }
-    .ai-option:hover,.ai-option.selected{
-      border-color:#756fff;
-      background:#f6f4ff;
-      color:#4c45bd;
-    }
-    .ai-form-grid{
-      display:grid;
-      gap:10px;
-      margin-top:12px;
-    }
-    .ai-field label{
-      display:block;
-      margin-bottom:5px;
-      font-size:11px;
-      font-weight:800;
-      color:#4f555e;
-    }
-    .ai-field input,.ai-field textarea,.ai-field select{
-      width:100%;
-      border:1px solid #dfe1e6;
-      border-radius:11px;
-      padding:9px 10px;
-      background:#fff;
-      color:#242830;
-      font:inherit;
-      font-size:12px;
-      line-height:1.4;
-      outline:0;
-    }
-    .ai-field textarea{
-      min-height:70px;
-      resize:vertical;
-    }
-    .ai-field input:focus,.ai-field textarea:focus,.ai-field select:focus{
-      border-color:#7e77ff;
-      box-shadow:0 0 0 3px rgba(99,91,255,.10);
-    }
-    .ai-submit-flow{
-      width:100%;
-      min-height:40px;
-      border:0;
-      border-radius:12px;
-      margin-top:12px;
-      background:#12151a;
-      color:#fff;
-      font-weight:800;
-      cursor:pointer;
-    }
-    .ai-submit-flow:disabled{
-      opacity:.55;
-      cursor:not-allowed;
-    }
     .ai-result{
       display:grid;
       gap:10px;
@@ -744,6 +624,33 @@
       display:grid;
       gap:10px;
     }
+    .ai-chat-welcome{
+      display:grid;
+      gap:12px;
+    }
+    .ai-suggestion-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:2px;
+    }
+    .ai-suggestion-chip{
+      border:1px solid #dfe1e6;
+      border-radius:999px;
+      background:#fff;
+      color:#2a2e36;
+      padding:8px 11px;
+      font-size:12px;
+      font-weight:720;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+    .ai-suggestion-chip:hover,.ai-suggestion-chip:focus{
+      border-color:#8d87ff;
+      background:#f6f4ff;
+      color:#4d46bd;
+      outline:0;
+    }
     .ai-message-row{
       display:flex;
       margin-bottom:12px;
@@ -773,6 +680,28 @@
       background:#fff3f3;
       border:1px solid #f0caca;
       color:#a13e3e;
+    }
+    .ai-tool-recommendation{
+      margin-top:10px;
+      color:#252930;
+    }
+    .ai-tool-recommendation p{
+      margin:6px 0 0;
+    }
+    .ai-error-actions{
+      display:flex;
+      gap:8px;
+      margin-top:10px;
+    }
+    .ai-error-actions button{
+      border:1px solid #e2c7c7;
+      border-radius:10px;
+      background:#fff;
+      color:#8f3030;
+      padding:7px 10px;
+      font-size:12px;
+      font-weight:780;
+      cursor:pointer;
     }
     .ai-form{
       border-top:1px solid #e5e6ea;
