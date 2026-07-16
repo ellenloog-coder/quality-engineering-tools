@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quality Engineering Tools</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2.8 20 7.3v9.4L12 21.2 4 16.7V7.3L12 2.8Z" stroke="currentColor" stroke-width="2"/>
+              <path d="m8.2 11.9 2.4 2.4 5.2-5.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="brand-copy">
+            <strong>Quality Tools</strong>
+          </div>
+        </a>
+
+        <nav class="nav">
+          <button id="productsBtn" class="nav-item" aria-expanded="false">
+            Products
+            <span class="chev">⌃</span>
+          </button>
+                    <button id="learningBtn" class="nav-item" aria-expanded="false">
+            Learning &amp; support
+            <span class="chev">⌃</span>
+          </button>
+                  </nav>
+
+        <div class="header-actions">
+          <button id="languageBtn" class="lang-switch" type="button" aria-label="Switch language">中文</button>
+          <a class="contact-link" href="#">Contact</a>
+          <a class="login-link" href="#">Log in</a>
+          <button class="primary-btn" onclick="document.getElementById('tools').scrollIntoView()">Get started</button>
+        </div>
+      </div>
+    </header>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div class="mega-wrap">
+      <section id="megaMenu" class="mega-menu" aria-hidden="true">
+        <div class="mega-grid">
+          <div class="mega-col">
+            <div class="mega-label">PRODUCTS</div>
+
+            <a class="tool-link" href="https://ellenloog-coder.github.io/process-capability-analysis-tool/" target="_blank" rel="noopener noreferrer">
+              <span class="tool-icon lav">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 18h16M6 16c2-1 2-8 4-8s2 8 4 8 2-12 4-12" stroke="#3f3a76" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </span>
+              <span>
+                <div class="tool-title">Process Capability Analysis</div>
+                <div class="tool-desc">Cp, Cpk, Pp, Ppk and capability reports</div>
+              </span>
+            </a>
+
+            <a class="tool-link" href="https://ellenloog-coder.github.io/measurement-system-analysis-tool/" target="_blank" rel="noopener noreferrer">
+              <span class="tool-icon mint">
+                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" stroke="#1f6641" stroke-width="1.8"/><path d="M12 5v3M12 16v3M5 12h3M16 12h3" stroke="#1f6641" stroke-width="1.8"/></svg>
+              </span>
+              <span>
+                <div class="tool-title">Measurement System Analysis</div>
+                <div class="tool-desc">Gage R&amp;R, Kappa, Cg/Cgk</div>
+              </span>
+            </a>
+
+            <a class="tool-link" href="#" aria-disabled="true" onclick="return false;">
+              <span class="tool-icon green-soft">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 19h16M6 16l3-4 3 2 5-7 2 2" stroke="#2d6c52" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M6 5v11M19 5v11" stroke="#2d6c52" stroke-width="1.4" stroke-dasharray="2 2"/>
+                </svg>
+              </span>
+              <span>
+                <div class="tool-title">Statistical Process Control (SPC) <span class="soon">Coming soon</span></div>
+                <div class="tool-desc">Control charts, stability monitoring, and trend analysis</div>
+              </span>
+            </a>
+
+            <a class="tool-link" href="#">
+              <span class="tool-icon yellow">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h8l3 3v15H7V3Z" stroke="#685c18" stroke-width="1.8"/><path d="M15 3v4h4M10 11h5M10 15h5" stroke="#685c18" stroke-width="1.8"/></svg>
+              </span>
+              <span>
+                <div class="tool-title">Guided 8D Investigation <span class="soon">Coming soon</span></div>
+                <div class="tool-desc">Structured 8D problem solving from D0 to D8</div>
+              </span>
+            </a>
+
+            <a class="tool-link" href="#">
+              <span class="tool-icon blue">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6M10 3v5l-5 10a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18L14 8V3" stroke="#236083" stroke-width="1.8"/><path d="M8 15h8" stroke="#236083" stroke-width="1.8"/></svg>
+              </span>
+              <span>
+                <div class="tool-title">DOE Decision Support <span class="soon">Coming soon</span></div>
+                <div class="tool-desc">Experimental planning and engineering guidance</div>
+              </span>
+            </a>
+
+            <a class="tool-link" href="https://ellenloog-coder.github.io/sampling-plan-design-tool/" target="_blank" rel="noopener noreferrer">
+              <span class="tool-icon pink">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M5 19V9h3v10M10.5 19V5h3v14M16 19v-7h3v7" stroke="#73384d" stroke-width="1.8"/></svg>
+              </span>
+              <span>
+                <div class="tool-title">Sampling Plan Design Tool</div>
+                <div class="tool-desc">Design sampling plans and evaluate inspection risk</div>
+              </span>
+            </a>
+
+            <a class="tool-link ai-launch-link" id="openAiMenu" href="#ai-assistant">
+              <span class="tool-icon ai-soft">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3.5a4.5 4.5 0 0 1 4.4 3.6A4.5 4.5 0 0 1 19.5 11a4.5 4.5 0 0 1-3.1 4.3A4.5 4.5 0 0 1 12 20.5a4.5 4.5 0 0 1-4.4-3.6A4.5 4.5 0 0 1 4.5 13a4.5 4.5 0 0 1 3.1-4.3A4.5 4.5 0 0 1 12 3.5Z" stroke="#4d4a8f" stroke-width="1.7"/>
+                  <path d="M8.5 12h7M12 8.5v7" stroke="#4d4a8f" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>
+                <div class="tool-title">AI Quality Assistant <span class="ai-beta">Beta</span></div>
+                <div class="tool-desc">Choose the right tool, understand results, and plan next actions</div>
+              </span>
+            </a>
+
+          </div>
+
+          <div class="mega-col">
+            <div class="mega-label">PLATFORM</div>
+            <a class="feature-link" href="#">
+              <span class="mini-icon">◎</span>
+              <span><div class="feature-title">Browser-based workspace</div><div class="feature-desc">Run directly in the browser</div></span>
+            </a>
+            <a class="feature-link" href="#">
+              <span class="mini-icon">文</span>
+              <span><div class="feature-title">Bilingual reports</div><div class="feature-desc">English and Chinese outputs</div></span>
+            </a>
+            <a class="feature-link" href="#">
+              <span class="mini-icon">▱</span>
+              <span><div class="feature-title">Local-first data handling</div><div class="feature-desc">Your data stays on your device</div></span>
+            </a>
+            <a class="feature-link" href="#">
+              <span class="mini-icon">↗</span>
+              <span><div class="feature-title">Practical interpretation</div><div class="feature-desc">Engineering-friendly explanations</div></span>
+            </a>
+          </div>
+
+        </div>
+
+        <div class="mega-footer">
+          <a class="footer-action" href="#"><span>▣</span> Contact</a>
+          <a class="footer-action" href="#tools"><span>⌘</span> Open tools</a>
+        </div>
+      </section>
+
+      <section id="learningMenu" class="mega-menu learning-menu" aria-hidden="true">
+        <div class="learning-grid">
+          <div class="learning-col">
+            <div class="learning-label">LEARN</div>
+
+            <a class="learning-link" href="#">
+              <span class="learning-link-title">Quality Tools Academy</span>
+              <span class="learning-link-arrow">→</span>
+            </a>
+
+            <a class="learning-link" href="#">
+              <span class="learning-link-title">Trainings</span>
+              <span class="learning-link-arrow">→</span>
+            </a>
+          </div>
+
+          <div class="learning-col">
+            <div class="learning-label">SUPPORT</div>
+
+            <a class="learning-link" href="#">
+              <span class="learning-link-title">Help Center</span>
+              <span class="learning-link-arrow">→</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="learning-footer">
+          <span>Practical resources for quality professionals</span>
+          <a href="#">Explore learning resources →</a>
+        </div>
+      </section>
+    </div>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">All-in-one quality tools</div>
+          <h1>Smarter, simpler quality engineering tools for scalable, reliable quality operations.</h1>
+          <p>
+            Run capability studies, MSA, SPC charts, 8D investigations, and more directly in your browser—no installation, no IT involvement, and no data upload.</p>
+          <p>
+            Each analysis applies deterministic data recognition, chart selection, engineering interpretation, and bilingual reporting to deliver fast, consistent, and professional results across your operations.
+          </p>
+          <div class="hero-actions">
+            <button class="primary-btn" onclick="document.getElementById('tools').scrollIntoView()">Explore tools →</button>
+          </div>
+          <div class="trust-row">
+            <div class="trust-item"><span class="trust-dot">✓</span>Built for quality professionals</div>
+            <div class="trust-item"><span class="trust-dot">⌁</span>Data stays on your device</div>
+            <div class="trust-item"><span class="trust-dot">文</span>English and Chinese reports</div>
+            <div class="trust-item"><span class="trust-dot">↗</span>Practical engineering interpretation</div>
+          </div>
+        </div>
+
+      </section>
+
+      <section id="tools" class="tools-section">
+        <div class="section-head">
+          <div><h2>Quality engineering tools</h2><p>Start with the tool that matches your current problem.</p></div>
+        </div>
+        <div class="tools-grid">
+          <article class="tool-card">
+            <span class="tool-icon lav">⌁</span>
+            <h3>Process Capability Analysis</h3>
+            <p>Analyze Cp, Cpk, Pp and Ppk with practical engineering interpretation.</p>
+            <a class="card-link" href="https://ellenloog-coder.github.io/process-capability-analysis-tool/" target="_blank" rel="noopener noreferrer">Open tool →</a>
+          </article>
+          <article class="tool-card">
+            <span class="tool-icon mint">◎</span>
+            <h3>Measurement System Analysis</h3>
+            <p>Run Gage R&amp;R, Kappa and Type 1 studies with bilingual reporting.</p>
+            <a class="card-link" href="https://ellenloog-coder.github.io/measurement-system-analysis-tool/" target="_blank" rel="noopener noreferrer">Open tool →</a>
+          </article>
+          <article class="tool-card">
+            <span class="tool-icon green-soft">SPC</span>
+            <h3>Statistical Process Control <span class="soon">Coming soon</span></h3>
+            <p>Create control charts, evaluate process stability, and monitor meaningful trends over time.</p>
+            <span class="card-link" aria-disabled="true">Coming soon</span>
+          </article>
+          <article class="tool-card">
+            <span class="tool-icon yellow">8D</span>
+            <h3>Guided 8D Investigation <span class="soon">Coming soon</span></h3>
+            <p>Structure containment, root cause analysis, corrective action and verification.</p>
+            <span class="card-link" aria-disabled="true">Coming soon</span>
+          </article>
+          <article class="tool-card">
+            <span class="tool-icon blue">△</span>
+            <h3>DOE Decision Support <span class="soon">Coming soon</span></h3>
+            <p>Plan experiments and clearly separate measured results, model outputs and decisions.</p>
+            <span class="card-link" aria-disabled="true">Coming soon</span>
+          </article>
+          <article class="tool-card">
+            <span class="tool-icon pink">AQL</span>
+            <h3>Sampling Plan Design Tool</h3>
+            <p>Design attribute sampling plans and evaluate producer and consumer risk.</p>
+            <a class="card-link" href="https://ellenloog-coder.github.io/sampling-plan-design-tool/" target="_blank" rel="noopener noreferrer">Open tool →</a>
+          </article>
+          <article class="tool-card ai-card">
+            <span class="tool-icon ai-soft">AI</span>
+            <h3>AI Quality Assistant <span class="ai-beta">Beta</span></h3>
+            <p>Helps users select the right analysis, understand results, and identify practical next engineering actions.</p>
+            <button class="card-link ai-card-button" id="openAiCard" type="button">Open assistant →</button>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <button class="ai-floating-button" id="aiFloatingButton" type="button" aria-expanded="false" aria-controls="aiAssistantPanel">
+    <span class="ai-floating-icon">AI</span>
+    <span class="ai-floating-label">AI Quality Assistant</span>
+  </button>
+
+  <aside class="ai-panel" id="aiAssistantPanel" aria-hidden="true" aria-label="AI Quality Assistant">
+    <div class="ai-panel-header">
+      <div class="ai-panel-identity">
+        <span class="ai-floating-icon">AI</span>
+        <div>
+          <div class="ai-panel-title">AI Quality Assistant</div>
+          <div class="ai-panel-status"><span class="ai-status-dot"></span><span>AI assistant ready</span></div>
+        </div>
+      </div>
+      <div class="ai-panel-actions">
+        <button class="ai-header-btn" id="aiClearButton" type="button" title="Clear conversation" aria-label="Clear conversation">↻</button>
+        <button class="ai-header-btn" id="aiCloseButton" type="button" title="Close" aria-label="Close">×</button>
+      </div>
+    </div>
+
+    <div class="ai-privacy-note">
+      Only structured, non-sensitive summary information is sent to the AI service. Analysis files, raw data, supplier names, and product names are not shared automatically.
+    </div>
+
+    <div class="ai-workspace" id="aiWorkspace" aria-live="polite"></div>
+
+    <form class="ai-form" id="aiForm">
+      <div class="ai-input-wrap">
+        <textarea class="ai-input" id="aiInput" rows="1" maxlength="1500" placeholder="Optional: describe a quality engineering question…"></textarea>
+        <button class="ai-send" id="aiSendButton" type="submit" aria-label="Send">↑</button>
+      </div>
+      <div class="ai-form-note">AI guidance is for engineering reference. Deterministic tool calculations remain the source of statistical results.</div>
+    </form>
+  </aside>  <script src="assets/js/navigation.js"></script>
+  <script src="assets/js/ai-assistant.js"></script>
+  <script src="assets/js/i18n.js"></script>
+</body>
+</html>
