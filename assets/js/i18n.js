@@ -47,6 +47,7 @@
         "From analysis and problem solving to planning and engineering decisions, Blendex Labs helps quality professionals work with greater clarity, consistency, and confidence.": "从数据分析、问题解决到质量规划和工程决策，Blendex Labs 帮助质量专业人员以更清晰、一致和可靠的方式开展工作。",
         "Built for practical use, our tools simplify the workflow without removing the engineering logic behind it.": "我们的工具简化使用流程，但不会削弱方法背后的工程逻辑。",
         "Explore tools": "探索工具",
+        "Install Blendex Labs": "安装 Blendex Labs",
         "Built for quality professionals": "为质量专业人员设计",
         "Data stays on your device": "数据保留在本地设备",
         "English and Chinese reports": "支持中英文报告",

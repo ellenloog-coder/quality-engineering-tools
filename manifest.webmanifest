@@ -1,18 +1,38 @@
 {
   "name": "Blendex Labs Quality Engineering Tools",
   "short_name": "Blendex Labs",
-  "description": "Browser-based quality engineering tools for process capability, measurement system analysis, sampling plans, and practical engineering decisions.",
+  "description": "Practical quality engineering tools, made smarter and simpler.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#12151a",
+  "theme_color": "#ffffff",
+  "orientation": "any",
+  "lang": "en",
   "icons": [
     {
-      "src": "assets/icons/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "./assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "./assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icons/maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./assets/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

@@ -304,6 +304,29 @@
       margin-top:14px;
     }
     .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+    .install-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid #d9dde6;
+      border-radius:999px;
+      background:#fff;
+      color:#12151a;
+      padding:12px 18px;
+      font-weight:800;
+      font-size:15px;
+      box-shadow:0 10px 22px rgba(16,20,28,.08);
+      cursor:pointer;
+    }
+    .install-btn[hidden],.install-hint[hidden]{display:none}
+    .install-btn:hover{background:#f6f7f9}
+    .install-hint{
+      max-width:560px;
+      color:#68707c;
+      font-size:14px;
+      line-height:1.5;
+      margin:14px 0 0;
+    }
     .secondary-btn{
       background:#fff;border:1px solid #dfe2e7;
       padding:14px 22px;border-radius:999px;font-weight:700;cursor:pointer;

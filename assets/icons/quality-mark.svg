@@ -1,5 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Blendex Labs">
-  <rect width="64" height="64" rx="16" fill="#12151a"/>
-  <path d="M18 34.5 27 43l19-23" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M19 18h26" fill="none" stroke="#8fd6ff" stroke-width="4" stroke-linecap="round"/>
+  <rect width="64" height="64" fill="#ffffff"/>
+  <rect x="13" y="18" width="34" height="34" fill="none" stroke="#1f1f1f" stroke-width="2.5"/>
+  <rect x="18" y="13" width="34" height="34" fill="none" stroke="#1f1f1f" stroke-width="2.5"/>
+  <rect x="23" y="8" width="34" height="34" fill="none" stroke="#1f1f1f" stroke-width="2.5"/>
+  <rect x="26" y="34" width="10" height="10" fill="#1f1f1f"/>
 </svg>
