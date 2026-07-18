@@ -1,4 +1,4 @@
-const CACHE_NAME = "blendex-labs-shell-v3";
+const CACHE_NAME = "blendex-labs-shell-v4";
 const INDEX_URL = new URL("./index.html", self.location.href).href;
 const OFFLINE_URL = new URL("./offline.html", self.location.href).href;
 const PRECACHE_URLS = [
