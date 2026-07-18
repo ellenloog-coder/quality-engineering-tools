@@ -159,6 +159,11 @@
       transition:.18s ease;
     }
     .tool-link:hover,.feature-link:hover,.resource-link:hover{background:#f7f7f9}
+    .tool-link:focus-visible,.feature-link:focus-visible,.resource-link:focus-visible{
+      outline:2px solid rgba(68,94,255,.45);
+      outline-offset:3px;
+    }
+    .tool-link.is-disabled{cursor:default}
     .tool-link + .tool-link{margin-top:4px}
     .tool-icon{
       width:42px;height:42px;border-radius:10px;
@@ -167,6 +172,7 @@
     .tool-icon svg{width:22px;height:22px}
     .lav{background:#f0e9ff}.mint{background:#dff8e6}.yellow{background:#fff8bc}
     .blue{background:#dff2ff}.pink{background:#ffe3ee}.orange{background:#ffe9d3}
+    .reliability{background:linear-gradient(135deg,#e4f5f2,#e8eefb);color:#345c63;font-weight:850;font-size:12px}
     .ai-soft{
       background:linear-gradient(135deg,#ece9ff,#e4f2ff);
       color:#4d4a8f;
