@@ -448,13 +448,20 @@
     .ai-card-button:hover{
       text-decoration:underline;
     }
+    :root{
+      --floating-action-right:24px;
+      --floating-action-bottom:calc(24px + env(safe-area-inset-bottom));
+      --floating-action-gap:14px;
+      --ai-launcher-height:52px;
+      --feedback-button-height:44px;
+    }
     .ai-floating-button{
       position:fixed;
-      right:24px;
-      bottom:24px;
+      right:var(--floating-action-right);
+      bottom:var(--floating-action-bottom);
       z-index:70;
       min-width:138px;
-      height:52px;
+      height:var(--ai-launcher-height);
       border:0;
       border-radius:999px;
       padding:0 18px 0 12px;
@@ -467,6 +474,23 @@
       cursor:pointer;
       box-shadow:0 16px 38px rgba(18,21,26,.26);
       transition:.2s ease;
+    }
+    .feedback-button,
+    .feedback-floating-button,
+    .feedback-widget-button,
+    [data-feedback-button],
+    [data-testid*="feedback" i],
+    [aria-label="Feedback"],
+    [aria-label*="Feedback"]{
+      position:fixed;
+      right:var(--floating-action-right);
+      bottom:calc(var(--floating-action-bottom) + var(--ai-launcher-height) + var(--floating-action-gap));
+      z-index:70;
+    }
+    .ai-floating-button[aria-expanded="true"]{
+      opacity:0;
+      pointer-events:none;
+      transform:translateY(6px);
     }
     .ai-floating-button:hover{
       transform:translateY(-2px);
@@ -484,11 +508,11 @@
     }
     .ai-panel{
       position:fixed;
-      right:24px;
-      bottom:88px;
+      right:var(--floating-action-right);
+      bottom:calc(var(--floating-action-bottom) + var(--ai-launcher-height) + var(--floating-action-gap) + var(--feedback-button-height) + var(--floating-action-gap));
       z-index:71;
       width:min(390px,calc(100vw - 32px));
-      height:min(590px,calc(100vh - 118px));
+      height:min(590px,calc(100vh - 178px - env(safe-area-inset-bottom)));
       display:flex;
       flex-direction:column;
       background:#fff;
@@ -811,9 +835,12 @@
     }
 
     @media (max-width:620px){
+      :root{
+        --floating-action-right:16px;
+        --floating-action-bottom:calc(16px + env(safe-area-inset-bottom));
+        --floating-action-gap:12px;
+      }
       .ai-floating-button{
-        right:16px;
-        bottom:16px;
         min-width:52px;
         width:52px;
         padding:0 10px;
@@ -821,9 +848,9 @@
       .ai-floating-label{display:none}
       .ai-panel{
         right:8px;
-        bottom:76px;
+        bottom:calc(var(--floating-action-bottom) + var(--ai-launcher-height) + var(--floating-action-gap) + var(--feedback-button-height) + var(--floating-action-gap));
         width:calc(100vw - 16px);
-        height:calc(100vh - 92px);
+        height:calc(100vh - 152px - env(safe-area-inset-bottom));
         border-radius:18px;
       }
     }
