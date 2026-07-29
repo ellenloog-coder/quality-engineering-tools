@@ -145,6 +145,7 @@
       min-height:480px;
     }
     .mega-col{padding:34px 42px}
+    .mega-col:first-child{display:flex;flex-direction:column}
     .mega-col + .mega-col{border-left:1px solid var(--line)}
     .mega-label{
       color:#7a7e85;
