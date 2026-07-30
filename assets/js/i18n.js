@@ -2,7 +2,7 @@
       const translations = {
         "Blendex Labs | Practical Quality Engineering Tools": "Blendex Labs | 实用质量工程工具",
         "Blendex Labs": "Blendex Labs",
-        "Products": "产品",
+        "Workspace": "工作台",
         "Learning & support": "学习与支持",
         "Learn": "学习",
         "LEARN": "学习",
@@ -15,7 +15,7 @@
         "Contact": "联系我们",
         "Log in": "登录",
         "Get started": "开始使用",
-        "PRODUCTS": "产品",
+        "WORKSPACE": "工作台",
         "Process Capability Analysis": "过程能力分析",
         "Cp, Cpk, Pp, Ppk and capability reports": "Cp、Cpk、Pp、Ppk 与过程能力报告",
         "Measurement System Analysis": "测量系统分析",
