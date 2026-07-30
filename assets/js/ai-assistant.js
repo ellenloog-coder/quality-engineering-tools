@@ -111,8 +111,8 @@
     eightD: {
       name: "Guided 8D Investigation",
       zhName: "引导式 8D 调查",
-      url: "",
-      comingSoon: true,
+      url: "https://ellenloog-coder.github.io/guided-8d-investigation-tool/",
+      comingSoon: false,
       reason: {
         en: "Use Guided 8D when you are investigating a customer complaint, failure, escape, or repeated quality problem.",
         zh: "当你在调查客诉、失效、流出或重复质量问题时，使用引导式 8D。"
