@@ -3,7 +3,7 @@ title: "我应该使用哪个质量工具？"
 slug: which-quality-tool
 category: 方法论与标准解读
 summary: "从当前工程问题出发，在 MSA、SPC、过程能力分析、8D、DOE 和 Reliability 之间做出合理选择。"
-readingTime: 约 15 分钟
+readingTime: 约 3 分钟
 updatedAt: 2026-07-31
 relatedTool: Blendex Labs Quality Tools
 tags: [工具选择, MSA, SPC, 8D, DOE, Reliability]

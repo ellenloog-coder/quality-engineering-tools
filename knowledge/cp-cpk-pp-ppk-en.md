@@ -3,7 +3,7 @@ title: "What is the difference between Cp, Cpk, Pp and Ppk?"
 slug: cp-cpk-pp-ppk-en
 category: Methodology & Standards
 summary: "Understand the difference between the four process capability indices through within-process variation, overall variation and process centering."
-readingTime: About 12 min
+readingTime: About 2 min
 updatedAt: 2026-07-31
 relatedTool: Process Capability Analysis Tool
 tags: [process capability, statistics]

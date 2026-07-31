@@ -3,7 +3,7 @@ title: "Which quality tool should I use?"
 slug: which-quality-tool-en
 category: Methodology & Standards
 summary: "Choose between MSA, SPC, process capability analysis, 8D, DOE and Reliability based on the engineering question you need to answer."
-readingTime: About 15 min
+readingTime: About 3 min
 updatedAt: 2026-07-31
 relatedTool: Blendex Labs Quality Tools
 tags: [tool selection, MSA, SPC, 8D, DOE, Reliability]

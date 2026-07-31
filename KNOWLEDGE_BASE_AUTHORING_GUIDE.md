@@ -2,14 +2,14 @@
 
 ## 当前架构
 
-当前项目使用静态 HTML，不使用 CMS、Markdown 构建器或运行时数据库。每篇文章是 `knowledge/` 下的一个 HTML 文件，共用 `knowledge/article.css` 和 `knowledge/article.js`。这样可以直接托管在现有 GitHub Pages 上，也不会影响 Workspace、工具模块或计算逻辑。
+当前项目使用静态 HTML，不使用 CMS、Markdown 构建器或运行时数据库。文章按分类列表组织：例如 `knowledge/methodology/index.html` 是方法论文章列表，文章文件使用唯一 slug 并共用 `knowledge/article.css` 和 `knowledge/article.js`。这样可以直接托管在现有 GitHub Pages 上，也不会影响 Workspace、工具模块或计算逻辑。
 
 ## 新增文章
 
-1. 复制 `knowledge/article-template.html`，改名为小写连字符 slug，例如 `msa-basics.html`。
+1. 复制 `knowledge/article-template.html`，改名为小写连字符 slug，例如 `msa-basics.html`，放到对应分类目录。
 2. 填写 `<title>`、面包屑、分类、唯一 H1、摘要、阅读时间、更新时间和关联工具。
 3. 在 `data-article-body` 中写正文，并使用真实的 `<h2>`、`<h3>` 标签；不要用加粗文字模拟标题。
-4. 在 `knowledge/index.html` 或相关阅读卡片中添加文章链接。
+4. 在对应分类的 `index.html` 文章列表中添加卡片，并为英文文章填写 `data-en-href`。
 5. 本地打开文章页面检查桌面和手机布局后，再提交推送。
 
 示例文章：`knowledge/cp-cpk-pp-ppk.html`。

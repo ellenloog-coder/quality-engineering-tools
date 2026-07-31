@@ -2,6 +2,13 @@
   const article = document.querySelector('[data-knowledge-article]');
   const tocNav = document.querySelector('[data-article-toc]');
   if (!article || !tocNav) return;
+  const categoryPath = '/knowledge/methodology/';
+  const english = document.documentElement.lang.toLowerCase().startsWith('en');
+  document.querySelectorAll('.article-nav a[href="/knowledge/"], .article-footer a[href="/knowledge/"]').forEach(link => {
+    link.href = categoryPath;
+    const footerLink = Boolean(link.closest('.article-footer'));
+    link.textContent = english ? (footerLink ? '← Back to methodology articles' : 'Methodology articles') : (footerLink ? '← 返回方法论文章列表' : '方法论文章列表');
+  });
   const headings = [...article.querySelectorAll('h2, h3')];
   const slugify = text => text.toLowerCase().trim().replace(/[^\w\u4e00-\u9fff -]/g, '').replace(/[\s]+/g, '-');
   headings.forEach((heading, index) => {

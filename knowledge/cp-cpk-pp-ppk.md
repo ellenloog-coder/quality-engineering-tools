@@ -3,7 +3,7 @@ title: "Cp、Cpk、Pp、Ppk 有什么区别？"
 slug: cp-cpk-pp-ppk
 category: 方法论与标准解读
 summary: "用组内变差、整体变差和过程中心偏移，理解四个过程能力指标的真正区别，以及为什么不能只根据一个指数放行过程。"
-readingTime: 约 12 分钟
+readingTime: 约 2 分钟
 updatedAt: 2026-07-31
 relatedTool: Process Capability Analysis Tool
 tags:
