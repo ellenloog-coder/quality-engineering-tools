@@ -11,8 +11,10 @@
   if (!article || !tocNav) return;
   const categoryPath = '/knowledge/methodology/';
   const english = document.documentElement.lang.toLowerCase().startsWith('en');
-  if (location.pathname.includes('msa-method-selection') && !document.querySelector('.article-tags')) {
-    const tags = english ? ['MSA', 'Gage R&R', 'Kappa', 'Cg/Cgk', 'Measurement System Analysis'] : ['MSA', 'Gage R&R', 'Kappa', 'Cg/Cgk', '测量系统分析'];
+  if ((location.pathname.includes('msa-method-selection') || location.pathname.includes('cpk-high-npi')) && !document.querySelector('.article-tags')) {
+    const tags = location.pathname.includes('cpk-high-npi')
+      ? (english ? ['Process Capability', 'Cpk', 'Ppk', 'NPI Release', 'Mass Production Stability'] : ['过程能力', 'Cpk', 'Ppk', 'NPI 放行', '量产稳定性'])
+      : (english ? ['MSA', 'Gage R&R', 'Kappa', 'Cg/Cgk', 'Measurement System Analysis'] : ['MSA', 'Gage R&R', 'Kappa', 'Cg/Cgk', '测量系统分析']);
     const tagRow = document.createElement('div');
     tagRow.className = 'article-tags';
     tagRow.setAttribute('aria-label', english ? 'Article tags' : '文章标签');
