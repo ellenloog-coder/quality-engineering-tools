@@ -118,10 +118,16 @@
 
       function applyLanguage(language) {
         const isChinese = language === "zh";
+        const translate = english => {
+          if (!isChinese) return english;
+          if (translations[english]) return translations[english];
+          const withoutTerminalPunctuation = english.replace(/[.!?。！？]+$/, "");
+          return translations[withoutTerminalPunctuation] || english;
+        };
 
         translatableNodes.forEach(node => {
           const english = node.__englishText;
-          const translated = isChinese && translations[english] ? translations[english] : english;
+          const translated = translate(english);
           node.nodeValue = node.__leadingSpace + translated + node.__trailingSpace;
         });
 
