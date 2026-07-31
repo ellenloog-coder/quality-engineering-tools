@@ -10,7 +10,7 @@
         "Methodology & Standards": "方法论与标准解读",
         "Engineering Best Practices": "工程最佳实践",
         "Cases & Clinic": "案例与诊所",
-        "Help Center": "帮助中心",
+        "Statistics & Algorithm Notes": "统计与算法说明",
         "Knowledge resources for quality professionals": "为质量专业人员提供的知识资源",
         "Explore knowledge resources →": "浏览知识资源 →",
         "Contact": "联系我们",
