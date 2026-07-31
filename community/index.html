@@ -20,6 +20,16 @@
     .community-form{margin-top:18px}
     .community-form textarea{width:100%;min-height:180px;resize:vertical;border:1px solid var(--article-line);border-radius:12px;padding:15px;font:inherit;font-size:16px;line-height:1.7;color:var(--article-ink);background:#fff}
     .community-form textarea:focus{outline:0;border-color:#9ca3af;box-shadow:0 0 0 3px rgba(156,163,175,.14)}
+    .community-compose-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 8px;color:var(--article-muted);font-size:13px}
+    .community-emoji-picker{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+    .community-emoji-button{border:1px solid var(--article-line);border-radius:8px;background:#fff;padding:5px 8px;font-size:17px;line-height:1;cursor:pointer;transition:background .15s,border-color .15s}
+    .community-emoji-button:hover,.community-emoji-button:focus{background:#f1f2f4;border-color:#9ca3af;outline:0}
+    .community-comments{display:grid;gap:12px;margin-top:24px}
+    .community-comment-item{border:1px solid var(--article-line);border-radius:12px;background:#fff;padding:15px 17px}
+    .community-comment-meta{display:flex;justify-content:space-between;gap:12px;margin-bottom:7px;color:var(--article-muted);font-size:12px}
+    .community-comment-body{white-space:pre-wrap;overflow-wrap:anywhere;color:var(--article-ink);font-size:15px;line-height:1.7}
+    .community-comments-empty{margin:20px 0;color:var(--article-muted);font-size:14px}
+    .community-giscus{margin-top:26px;min-height:180px}
     .community-form-footer{display:flex;justify-content:flex-end;align-items:center;gap:14px;margin-top:12px}
     .community-status{margin-right:auto;color:var(--article-muted);font-size:13px}
     .community-button{border:0;border-radius:9px;background:#14171c;color:#fff;padding:10px 16px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
@@ -66,10 +76,13 @@
           <blockquote id="aboutQuote" hidden></blockquote>
           <h2>Leave a comment</h2>
           <p id="commentIntro">欢迎留下你对工具、文章或后续内容方向的建议。</p>
-          <form class="community-form" id="communityForm">
+          <form class="community-form" id="communityForm" hidden>
+            <div class="community-compose-tools"><span id="resizeHint">可拖动输入框右下角调整高度</span><div class="community-emoji-picker" id="communityEmojiPicker" aria-label="Emoji"><button class="community-emoji-button" type="button" data-emoji="😊" aria-label="Smiley">😊</button><button class="community-emoji-button" type="button" data-emoji="👍" aria-label="Thumbs up">👍</button><button class="community-emoji-button" type="button" data-emoji="💡" aria-label="Idea">💡</button><button class="community-emoji-button" type="button" data-emoji="🎯" aria-label="Target">🎯</button><button class="community-emoji-button" type="button" data-emoji="❤️" aria-label="Heart">❤️</button><button class="community-emoji-button" type="button" data-emoji="🚀" aria-label="Rocket">🚀</button></div></div>
             <textarea id="communityComment" rows="6" placeholder="分享你的想法或反馈……"></textarea>
             <div class="community-form-footer"><span class="community-status" id="communityStatus"></span><button class="community-button" type="submit">评论</button></div>
           </form>
+          <div id="communityComments" class="community-comments" aria-live="polite" hidden></div>
+          <div id="giscusComments" class="community-giscus" aria-label="Community comments"></div>
         </section>
       </div>
       <details class="article-toc" open><summary>本文目录</summary><nav data-article-toc></nav></details>
@@ -98,6 +111,61 @@
       button.addEventListener('click',()=>{en=!en;apply()});
       form.addEventListener('submit',e=>{e.preventDefault();if(!comment.value.trim()){comment.focus();return}status.textContent=en?'Thanks — publishing will be connected later.':'感谢你的评论；发布功能后续接入。';comment.value=''});
       apply();
+    })();
+  </script>
+  <script>
+    (()=>{
+      const form=document.getElementById('communityForm');
+      const comment=document.getElementById('communityComment');
+      const status=document.getElementById('communityStatus');
+      const list=document.getElementById('communityComments');
+      const languageButton=document.getElementById('languageBtn');
+      const storageKey='blendex-community-comments-v1';
+      const read=()=>{try{const value=JSON.parse(localStorage.getItem(storageKey)||'[]');return Array.isArray(value)?value:[]}catch(_){return[]}};
+      const formatDate=(iso,en)=>{const date=new Date(iso);return Number.isNaN(date.getTime())?'':date.toLocaleString(en?'en-US':'zh-CN',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})};
+      const render=()=>{
+        const en=document.documentElement.lang==='en';
+        const comments=read();
+        list.innerHTML='';
+        if(!comments.length){list.innerHTML='<p class="community-comments-empty">'+(en?'No comments yet. Be the first to share your thoughts.':'还没有评论，欢迎留下第一条想法。')+'</p>';return}
+        comments.forEach(item=>{
+          const article=document.createElement('article');article.className='community-comment-item';
+          const meta=document.createElement('div');meta.className='community-comment-meta';
+          const label=document.createElement('span');label.textContent=en?'Community comment':'社区评论';
+          const time=document.createElement('time');time.dateTime=item.createdAt;time.textContent=formatDate(item.createdAt,en);
+          meta.append(label,time);const body=document.createElement('div');body.className='community-comment-body';body.textContent=item.text;article.append(meta,body);list.append(article);
+        });
+      };
+      document.querySelectorAll('[data-emoji]').forEach(button=>button.addEventListener('click',()=>{
+        const emoji=button.dataset.emoji;const start=comment.selectionStart??comment.value.length;const end=comment.selectionEnd??comment.value.length;
+        comment.value=comment.value.slice(0,start)+emoji+comment.value.slice(end);comment.focus();comment.setSelectionRange(start+emoji.length,start+emoji.length);
+      }));
+      form.addEventListener('submit',event=>{
+        event.preventDefault();event.stopImmediatePropagation();
+        const text=comment.value.trim();if(!text){comment.focus();return}
+        const comments=read();comments.unshift({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),text,createdAt:new Date().toISOString()});localStorage.setItem(storageKey,JSON.stringify(comments));comment.value='';
+        status.textContent=document.documentElement.lang==='en'?'Comment saved in this browser.':'评论已保存在当前浏览器中。';render();
+      },true);
+      languageButton.addEventListener('click',()=>setTimeout(render,0));
+      render();
+    })();
+  </script>
+  <script>
+    (()=>{
+      const mount=document.getElementById('giscusComments');
+      const languageButton=document.getElementById('languageBtn');
+      const config={repo:'ellenloog-coder/quality-engineering-tools',repoId:'R_kgDOTabMJw',category:'General',categoryId:'DIC_kwDOTabMJ84DCYy1'};
+      const load=()=>{
+        mount.innerHTML='';
+        const script=document.createElement('script');
+        script.src='https://giscus.app/client.js';
+        script.async=true;script.crossOrigin='anonymous';
+        script.dataset.repo=config.repo;script.dataset.repoId=config.repoId;script.dataset.category=config.category;script.dataset.categoryId=config.categoryId;
+        script.dataset.mapping='pathname';script.dataset.strict='0';script.dataset.reactionsEnabled='1';script.dataset.emitMetadata='0';script.dataset.inputPosition='bottom';script.dataset.theme='preferred_color_scheme';
+        script.dataset.lang=document.documentElement.lang==='en'?'en':'zh-CN';mount.appendChild(script);
+      };
+      languageButton.addEventListener('click',()=>setTimeout(load,0));
+      load();
     })();
   </script>
 </body>
