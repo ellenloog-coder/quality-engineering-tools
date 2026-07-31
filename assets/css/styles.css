@@ -81,6 +81,7 @@
       white-space:nowrap;
     }
     .nav-item:hover,.nav-item.active{background:#f1f2f4}
+    .nav-link{color:#20242a;text-decoration:none}
     .chev{transition:transform .2s ease}
     .nav-item.active .chev{transform:rotate(180deg)}
     .header-actions{display:flex;align-items:center;gap:22px}

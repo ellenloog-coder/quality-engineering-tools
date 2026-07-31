@@ -24,7 +24,7 @@
   "slug": "article-slug",
   "category": "方法论与标准解读",
   "summary": "文章摘要",
-  "readingTime": "约 8 分钟",
+  "readingTime": "约 3 分钟",
   "updatedAt": "2026-07-31",
   "relatedTool": "Process Capability Analysis Tool",
   "tags": ["过程能力"],
@@ -34,6 +34,8 @@
 ```
 
 目前 metadata 主要用于内容维护和未来索引；页面展示字段仍保持显式 HTML，避免引入复杂渲染器。
+
+为保持列表易读，单篇文章默认控制在 3 分钟以内；信息量较大的主题应拆成系列文章或另建长文资料，不要在列表中标注过长的阅读时间。
 
 ## 正文、表格和公式
 
