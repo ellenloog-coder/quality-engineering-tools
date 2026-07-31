@@ -16,4 +16,4 @@
     <div class="footer"><a class="back" href="/knowledge/">← <span data-en="Back to Knowledge Base">返回质识星球</span></a></div>
   </main>
   <script>(()=>{const b=document.getElementById('languageBtn');let en=false;b.addEventListener('click',()=>{en=!en;document.documentElement.lang=en?'en':'zh-CN';document.querySelectorAll('[data-en]').forEach(e=>{if(!e.dataset.zh)e.dataset.zh=e.innerHTML;e.innerHTML=en?e.dataset.en:e.dataset.zh});document.querySelectorAll('[data-en-href]').forEach(e=>{if(!e.dataset.zhHref)e.dataset.zhHref=e.getAttribute('href');e.setAttribute('href',en?e.dataset.enHref:e.dataset.zhHref)});b.textContent=en?'中文':'English';document.title=en?'Methodology & Standards | Knowledge Base':'方法论与标准解读 | 质识星球'})})();</script>
-</body></html>
+<script src="/knowledge/methodology/extra-article.js"></script></body></html>
