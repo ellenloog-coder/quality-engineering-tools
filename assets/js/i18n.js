@@ -3,7 +3,7 @@
         "Blendex Labs | Practical Quality Engineering Tools": "Blendex Labs | 实用质量工程工具",
         "Blendex Labs": "Blendex Labs",
         "Workspace": "工作台",
-        "Planet / Knowledge Base": "知识星球",
+        "Knowledge Base": "知识星球",
         "Knowledge": "知识星球",
         "KNOWLEDGE BASE": "知识星球",
         "SUPPORT": "支持",
