@@ -11,6 +11,14 @@
   if (!article || !tocNav) return;
   const categoryPath = '/knowledge/methodology/';
   const english = document.documentElement.lang.toLowerCase().startsWith('en');
+  if (location.pathname.includes('msa-method-selection') && !document.querySelector('.article-tags')) {
+    const tags = english ? ['MSA', 'Gage R&R', 'Kappa', 'Cg/Cgk', 'Measurement System Analysis'] : ['MSA', 'Gage R&R', 'Kappa', 'Cg/Cgk', '测量系统分析'];
+    const tagRow = document.createElement('div');
+    tagRow.className = 'article-tags';
+    tagRow.setAttribute('aria-label', english ? 'Article tags' : '文章标签');
+    tags.forEach(tag => { const el = document.createElement('span'); el.textContent = tag; tagRow.append(el); });
+    document.querySelector('.article-header')?.append(tagRow);
+  }
   document.querySelectorAll('.article-nav a[href="/knowledge/"], .article-footer a[href="/knowledge/"]').forEach(link => {
     link.href = categoryPath;
     const footerLink = Boolean(link.closest('.article-footer'));
