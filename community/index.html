@@ -29,7 +29,22 @@
     .community-comment-meta{display:flex;justify-content:space-between;gap:12px;margin-bottom:7px;color:var(--article-muted);font-size:12px}
     .community-comment-body{white-space:pre-wrap;overflow-wrap:anywhere;color:var(--article-ink);font-size:15px;line-height:1.7}
     .community-comments-empty{margin:20px 0;color:var(--article-muted);font-size:14px}
-    .community-giscus{margin-top:26px;min-height:180px}
+    .anonymous-feedback{margin-top:34px;padding-top:28px;border-top:1px solid var(--article-line)}
+    .anonymous-feedback h3{margin:0 0 8px;font-size:22px}
+    .anonymous-feedback p{margin:0 0 14px;color:var(--article-muted);font-size:14px}
+    .anonymous-feedback-form{display:grid;gap:10px}
+    .anonymous-feedback-form input,.anonymous-feedback-form textarea{width:100%;border:1px solid var(--article-line);border-radius:10px;padding:12px 14px;font:inherit;font-size:15px;line-height:1.6;color:var(--article-ink);background:#fff;box-sizing:border-box}
+    .anonymous-feedback-form textarea{min-height:130px;resize:vertical}
+    .anonymous-emoji-picker{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+    .anonymous-emoji-button{border:1px solid var(--article-line);border-radius:8px;background:#fff;padding:5px 8px;font-size:17px;line-height:1;cursor:pointer}
+    .anonymous-emoji-button:hover,.anonymous-emoji-button:focus{background:#f1f2f4;border-color:#9ca3af;outline:0}
+    .anonymous-feedback-form input:focus,.anonymous-feedback-form textarea:focus{outline:0;border-color:#9ca3af;box-shadow:0 0 0 3px rgba(156,163,175,.14)}
+    .anonymous-feedback-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .anonymous-feedback-status{color:var(--article-muted);font-size:13px}
+    .anonymous-feedback-list{display:grid;gap:10px;margin-top:18px}
+    .anonymous-feedback-item{border:1px solid var(--article-line);border-radius:10px;padding:13px 15px;background:#fff}
+    .anonymous-feedback-meta{display:flex;justify-content:space-between;gap:12px;margin-bottom:5px;color:var(--article-muted);font-size:12px}
+    .anonymous-feedback-body{white-space:pre-wrap;overflow-wrap:anywhere;color:var(--article-ink);font-size:15px;line-height:1.65}
     .community-form-footer{display:flex;justify-content:flex-end;align-items:center;gap:14px;margin-top:12px}
     .community-status{margin-right:auto;color:var(--article-muted);font-size:13px}
     .community-button{border:0;border-radius:9px;background:#14171c;color:#fff;padding:10px 16px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
@@ -75,14 +90,22 @@
           <p id="aboutP11">这些工具仍在不断完善。它们来自真实的质量工作，也希望能够真正回到工厂、供应商和工程团队的日常工作中。</p>
           <blockquote id="aboutQuote" hidden></blockquote>
           <h2>Leave a comment</h2>
-          <p id="commentIntro">欢迎留下你对工具、文章或后续内容方向的建议。</p>
+          <p id="commentIntro" hidden>欢迎留下你对工具、文章或后续内容方向的建议。</p>
           <form class="community-form" id="communityForm" hidden>
             <div class="community-compose-tools"><span id="resizeHint">可拖动输入框右下角调整高度</span><div class="community-emoji-picker" id="communityEmojiPicker" aria-label="Emoji"><button class="community-emoji-button" type="button" data-emoji="😊" aria-label="Smiley">😊</button><button class="community-emoji-button" type="button" data-emoji="👍" aria-label="Thumbs up">👍</button><button class="community-emoji-button" type="button" data-emoji="💡" aria-label="Idea">💡</button><button class="community-emoji-button" type="button" data-emoji="🎯" aria-label="Target">🎯</button><button class="community-emoji-button" type="button" data-emoji="❤️" aria-label="Heart">❤️</button><button class="community-emoji-button" type="button" data-emoji="🚀" aria-label="Rocket">🚀</button></div></div>
             <textarea id="communityComment" rows="6" placeholder="分享你的想法或反馈……"></textarea>
             <div class="community-form-footer"><span class="community-status" id="communityStatus"></span><button class="community-button" type="submit">评论</button></div>
           </form>
           <div id="communityComments" class="community-comments" aria-live="polite" hidden></div>
-          <div id="giscusComments" class="community-giscus" aria-label="Community comments"></div>
+          <section class="anonymous-feedback">
+            <form class="anonymous-feedback-form" id="anonymousFeedbackForm">
+              <input id="anonymousFeedbackName" maxlength="80" placeholder="昵称（可选）" autocomplete="nickname">
+              <div class="anonymous-emoji-picker" aria-label="Emoji"><button class="anonymous-emoji-button" type="button" data-anonymous-emoji="😊" aria-label="Smiley">😊</button><button class="anonymous-emoji-button" type="button" data-anonymous-emoji="👍" aria-label="Thumbs up">👍</button><button class="anonymous-emoji-button" type="button" data-anonymous-emoji="💡" aria-label="Idea">💡</button><button class="anonymous-emoji-button" type="button" data-anonymous-emoji="🎯" aria-label="Target">🎯</button><button class="anonymous-emoji-button" type="button" data-anonymous-emoji="❤️" aria-label="Heart">❤️</button><button class="anonymous-emoji-button" type="button" data-anonymous-emoji="🚀" aria-label="Rocket">🚀</button></div>
+              <textarea id="anonymousFeedbackMessage" maxlength="2000" required placeholder="写下你的想法或反馈……"></textarea>
+              <div class="anonymous-feedback-actions"><button class="community-button" type="submit" id="anonymousFeedbackSubmit">提交反馈</button><span class="anonymous-feedback-status" id="anonymousFeedbackStatus" role="status"></span></div>
+            </form>
+            <div id="anonymousFeedbackList" class="anonymous-feedback-list" aria-live="polite"></div>
+          </section>
         </section>
       </div>
       <details class="article-toc" open><summary>本文目录</summary><nav data-article-toc></nav></details>
@@ -90,6 +113,29 @@
     <footer class="article-footer"><a href="/">← 返回主页</a></footer>
   </main>
   <script src="../knowledge/article.js"></script>
+  <script src="./supabase-config.js"></script>
+  <script>
+    (()=>{
+      const config=window.BLENDEX_SUPABASE_CONFIG;
+      const form=document.getElementById('anonymousFeedbackForm');
+      const nameInput=document.getElementById('anonymousFeedbackName');
+      const messageInput=document.getElementById('anonymousFeedbackMessage');
+      const status=document.getElementById('anonymousFeedbackStatus');
+      const list=document.getElementById('anonymousFeedbackList');
+      const languageButton=document.getElementById('languageBtn');
+      if(!config||!form)return;
+      const endpoint=config.url+'/rest/v1/community_feedback';
+      const headers=()=>({'apikey':config.anonKey,'Authorization':'Bearer '+config.anonKey,'Content-Type':'application/json'});
+      const setStatus=(zh,en)=>{status.textContent=document.documentElement.lang==='en'?en:zh};
+      const applyLabels=()=>{const en=document.documentElement.lang==='en';nameInput.placeholder=en?'Name (optional)':'昵称（可选）';messageInput.placeholder=en?'Write your thoughts or feedback...':'写下你的想法或反馈……';document.getElementById('anonymousFeedbackSubmit').textContent=en?'Submit feedback':'提交反馈'};
+      document.querySelectorAll('[data-anonymous-emoji]').forEach(button=>button.addEventListener('click',()=>{const emoji=button.dataset.anonymousEmoji;const start=messageInput.selectionStart??messageInput.value.length;const end=messageInput.selectionEnd??messageInput.value.length;messageInput.value=messageInput.value.slice(0,start)+emoji+messageInput.value.slice(end);messageInput.focus();messageInput.setSelectionRange(start+emoji.length,start+emoji.length)}));
+      const render=rows=>{list.innerHTML='';rows.forEach(row=>{const article=document.createElement('article');article.className='anonymous-feedback-item';const meta=document.createElement('div');meta.className='anonymous-feedback-meta';const author=document.createElement('span');author.textContent=row.display_name||'Anonymous';const time=document.createElement('time');time.textContent=new Date(row.created_at).toLocaleDateString(document.documentElement.lang==='en'?'en-US':'zh-CN');meta.append(author,time);const body=document.createElement('div');body.className='anonymous-feedback-body';body.textContent=row.message;article.append(meta,body);list.append(article)})};
+      const load=async()=>{try{const response=await fetch(endpoint+'?select=id,display_name,message,created_at&status=eq.approved&order=created_at.desc',{headers:headers()});if(!response.ok)throw new Error('load_failed');render(await response.json())}catch(_){list.innerHTML='';}};
+      form.addEventListener('submit',async event=>{event.preventDefault();const message=messageInput.value.trim();if(!message){messageInput.focus();return}const submit=document.getElementById('anonymousFeedbackSubmit');submit.disabled=true;setStatus('正在提交……','Submitting...');try{const response=await fetch(endpoint,{method:'POST',headers:{...headers(),'Prefer':'return=minimal'},body:JSON.stringify({display_name:nameInput.value.trim()||null,message,status:'pending'})});if(!response.ok)throw new Error('submit_failed');messageInput.value='';setStatus('已提交，审核后会显示。','Submitted. It will appear after moderation.');await load()}catch(_){setStatus('提交失败，请稍后再试。','Submission failed. Please try again later.')}finally{submit.disabled=false}});
+      languageButton.addEventListener('click',()=>setTimeout(()=>{applyLabels();load()},0));
+      applyLabels();load();
+    })();
+  </script>
   <script>
     (()=>{
       const button=document.getElementById('languageBtn');
@@ -148,24 +194,6 @@
       },true);
       languageButton.addEventListener('click',()=>setTimeout(render,0));
       render();
-    })();
-  </script>
-  <script>
-    (()=>{
-      const mount=document.getElementById('giscusComments');
-      const languageButton=document.getElementById('languageBtn');
-      const config={repo:'ellenloog-coder/quality-engineering-tools',repoId:'R_kgDOTabMJw',category:'General',categoryId:'DIC_kwDOTabMJ84DCYy1'};
-      const load=()=>{
-        mount.innerHTML='';
-        const script=document.createElement('script');
-        script.src='https://giscus.app/client.js';
-        script.async=true;script.crossOrigin='anonymous';
-        script.dataset.repo=config.repo;script.dataset.repoId=config.repoId;script.dataset.category=config.category;script.dataset.categoryId=config.categoryId;
-        script.dataset.mapping='pathname';script.dataset.strict='0';script.dataset.reactionsEnabled='1';script.dataset.emitMetadata='0';script.dataset.inputPosition='bottom';script.dataset.theme='preferred_color_scheme';
-        script.dataset.lang=document.documentElement.lang==='en'?'en':'zh-CN';mount.appendChild(script);
-      };
-      languageButton.addEventListener('click',()=>setTimeout(load,0));
-      load();
     })();
   </script>
 </body>
