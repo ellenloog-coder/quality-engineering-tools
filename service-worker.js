@@ -1,24 +1,23 @@
-const CACHE_NAME = "blendex-labs-shell-v6";
+const CACHE_NAME = "blendex-labs-shell-v7";
 const INDEX_URL = new URL("./index.html", self.location.href).href;
 const OFFLINE_URL = new URL("./offline.html", self.location.href).href;
 const PRECACHE_URLS = [
   "./",
   "./index.html",
   "./offline.html",
-  "./manifest.webmanifest?v=20260719-1",
+  "./manifest.webmanifest?v=20260731-2",
   "./assets/css/styles.css?v=20260718-2",
   "./assets/js/navigation.js?v=20260716-6",
   "./assets/js/ai-assistant.js?v=20260730-1",
   "./assets/js/i18n.js?v=20260730-3",
   "./assets/js/pwa.js?v=20260717-1",
   "./assets/brand/blendex-labs-symbol.png",
-  "./assets/icons/favicon.svg?v=20260719-1",
-  "./assets/icons/favicon-32.png?v=20260719-1",
-  "./assets/icons/apple-touch-icon.png?v=20260719-1",
-  "./assets/icons/icon-192.png?v=20260719-1",
-  "./assets/icons/icon-512.png?v=20260719-1",
-  "./assets/icons/maskable-192.png?v=20260719-1",
-  "./assets/icons/maskable-512.png?v=20260719-1"
+  "./assets/icons/favicon-32.png?v=20260731-2",
+  "./assets/icons/apple-touch-icon.png?v=20260731-2",
+  "./assets/icons/icon-192.png?v=20260731-2",
+  "./assets/icons/icon-512.png?v=20260731-2",
+  "./assets/icons/maskable-192.png?v=20260731-2",
+  "./assets/icons/maskable-512.png?v=20260731-2"
 ];
 
 self.addEventListener("install", event => {
