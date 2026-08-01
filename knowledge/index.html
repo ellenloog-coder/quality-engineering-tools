@@ -36,7 +36,7 @@
     <div class="footer"><a href="/">← <span data-en="Back to Blendex Labs">返回 Blendex Labs</span></a></div>
   </main>
   <script>
-    (()=>{const button=document.getElementById('languageBtn');let en=false;button.addEventListener('click',()=>{en=!en;document.documentElement.lang=en?'en':'zh-CN';document.querySelectorAll('[data-en]').forEach(el=>{if(!el.dataset.zh)el.dataset.zh=el.innerHTML;el.innerHTML=en?el.dataset.en:el.dataset.zh});button.textContent=en?'中文':'English';document.title=en?'Knowledge Base | Blendex Labs':'质识星球 | Blendex Labs'})})();
+    (()=>{const button=document.getElementById('languageBtn');const apply=en=>{document.documentElement.lang=en?'en':'zh-CN';document.querySelectorAll('[data-en]').forEach(el=>{if(!el.dataset.zh)el.dataset.zh=el.innerHTML;el.innerHTML=en?el.dataset.en:el.dataset.zh});button.textContent=en?'中文':'EN';document.title=en?'Knowledge Base | Blendex Labs':'质识星球 | Blendex Labs'};let en=localStorage.getItem('quality-tools-language')==='en';apply(en);button.addEventListener('click',()=>{en=!en;localStorage.setItem('quality-tools-language',en?'en':'zh');apply(en)})})();
   </script>
 </body>
 </html>
