@@ -1,4 +1,4 @@
-const CACHE_NAME = "blendex-labs-shell-v12";
+const CACHE_NAME = "blendex-labs-shell-v13";
 const INDEX_URL = new URL("./index.html", self.location.href).href;
 const OFFLINE_URL = new URL("./offline.html", self.location.href).href;
 const PRECACHE_URLS = [
@@ -6,7 +6,7 @@ const PRECACHE_URLS = [
   "./index.html",
   "./offline.html",
   "./manifest.webmanifest?v=20260731-4",
-  "./assets/css/styles.css?v=20260718-2",
+  "./assets/css/styles.css?v=20260803-2",
   "./assets/js/navigation.js?v=20260716-6",
   "./assets/js/ai-assistant.js?v=20260730-1",
   "./assets/js/i18n.js?v=20260803-1",

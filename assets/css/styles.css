@@ -91,24 +91,16 @@
     }
     .icon-btn:hover{background:#f2f3f5}
     .lang-switch{
-      min-width:64px;
-      height:38px;
-      border:1px solid #dfe2e7;
-      background:#fff;
-      border-radius:999px;
-      padding:0 14px;
+      border:0;
+      background:transparent;
+      padding:0;
       display:inline-flex;
       align-items:center;
-      justify-content:center;
-      font-weight:750;
-      font-size:13px;
+      font-weight:600;
+      font-size:16px;
+      color:#20242a;
       cursor:pointer;
-      transition:.18s ease;
       white-space:nowrap;
-    }
-    .lang-switch:hover{
-      background:#f4f5f7;
-      border-color:#cfd3da;
     }
     .login-link,.contact-link{font-weight:600;white-space:nowrap}
     .primary-btn{
@@ -885,7 +877,7 @@
       .nav-item{padding:10px 5px;font-size:11px;gap:4px}
       .header-actions .icon-btn,.header-actions .primary-btn{display:none}
       .header-actions{gap:0}
-      .lang-switch{min-width:46px;height:34px;padding:0 8px}
+      .lang-switch{font-size:14px}
       .brand-copy span{display:none}
       .primary-btn{padding:11px 16px}
       .hero,.tools-section{width:calc(100% - 32px)}
