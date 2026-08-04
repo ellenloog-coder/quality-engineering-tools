@@ -6,6 +6,10 @@
     const paired = english ? current.replace(/-en(?=\.html$)/, '') : current.replace(/(?=\.html$)/, '-en');
     oldHeader.outerHTML = `<header class="kb-site-header"><div class="kb-site-inner"><a class="kb-brand" href="/"><img src="../assets/brand/blendex-labs-symbol.png" alt=""><span>Blendex Labs</span></a><nav class="kb-main-nav"><a href="/#tools">${english ? 'Workspace' : '工作台'}</a><a href="/knowledge/index.html" aria-current="page">${english ? 'Knowledge Base' : '质识星球'}</a><a href="/community/">${english ? 'Community' : '社区'}</a></nav><div class="kb-header-actions"><button class="kb-header-lang" type="button" onclick="location.href='${paired}'">${english ? '中文' : 'EN'}</button><a href="/">${english ? 'Contact' : '联系我们'}</a><a href="/">${english ? 'Log in' : '登录'}</a><a class="kb-get-started" href="/#tools">${english ? 'Get started' : '开始使用'}</a></div></div></header>`;
   }
+
+  const globalHeaderScript = document.createElement('script');
+  globalHeaderScript.src = '/assets/js/global-header.js?v=20260804-2';
+  document.head.append(globalHeaderScript);
   const article = document.querySelector('[data-knowledge-article]');
   const tocNav = document.querySelector('[data-article-toc]');
   if (!article || !tocNav) return;
