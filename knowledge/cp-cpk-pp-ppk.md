@@ -77,6 +77,6 @@ $$Cpk = \min\left[\frac{USL - \bar{x}}{3 \times \sigma_{within}}, \frac{\bar{x} 
 
 ## 关联工具
 
-[Process Capability Analysis Tool](https://ellenloog-coder.github.io/process-capability-analysis-tool/Blendex_CPK_Workspace_Integrated.html)
+[Process Capability Analysis Tool](https://ellenloog-coder.github.io/process-capability-analysis-tool/)
 
 使用实际数据完成 Cp、Cpk、Pp、Ppk 分析，并获得工程解释和报告。

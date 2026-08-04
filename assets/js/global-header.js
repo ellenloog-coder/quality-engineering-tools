@@ -13,7 +13,7 @@
 
   const workspaceLinks = [
     ['mint', '◎', '测量系统分析（MSA）', 'Measurement System Analysis (MSA)', '评估 Gage R&R、Kappa 和 Cg/Cgk', 'Run Gage R&R, Kappa and Cg/Cgk assessments', 'https://ellenloog-coder.github.io/measurement-system-analysis-tool/'],
-    ['lav', '∿', '过程能力分析', 'Process Capability Analysis', '计算 Cp、Cpk、Pp 和 Ppk 并生成报告', 'Calculate Cp, Cpk, Pp and Ppk and generate reports', 'https://ellenloog-coder.github.io/process-capability-analysis-tool/Blendex_CPK_Workspace_Integrated.html'],
+    ['lav', '∿', '过程能力分析', 'Process Capability Analysis', '计算 Cp、Cpk、Pp 和 Ppk 并生成报告', 'Calculate Cp, Cpk, Pp and Ppk and generate reports', 'https://ellenloog-coder.github.io/process-capability-analysis-tool/'],
     ['blue', '△', '实验设计（DOE）', 'Design of Experiments (DOE)', '生成实验计划并寻找最佳参数组合', 'Generate experiment plans and optimize parameters', 'https://ellenloog-coder.github.io/blendex-doe-tool/'],
     ['reliability', '↗', '可靠性分析', 'Reliability Analysis', '完成寿命、MTBF 和加速试验分析', 'Run life, MTBF and accelerated-test analysis', 'https://ellenloog-coder.github.io/reliability-tool/'],
     ['yellow', '8D', '8D 问题解决', '8D Problem Solving', '使用标准框架推进纠正与预防措施', 'Use a standard framework for corrective action', 'https://ellenloog-coder.github.io/guided-8d-investigation-tool/'],

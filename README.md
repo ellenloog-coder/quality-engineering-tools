@@ -4,7 +4,7 @@ Independent homepage for the Quality Engineering Tools suite.
 
 ## Live Tools
 
-- Process Capability Analysis: https://ellenloog-coder.github.io/process-capability-analysis-tool/Blendex_CPK_Workspace_Integrated.html
+- Process Capability Analysis: https://ellenloog-coder.github.io/process-capability-analysis-tool/
 - Measurement System Analysis: https://ellenloog-coder.github.io/measurement-system-analysis-tool/
 - Sampling Plan Design Tool: https://ellenloog-coder.github.io/sampling-plan-design-tool/
 

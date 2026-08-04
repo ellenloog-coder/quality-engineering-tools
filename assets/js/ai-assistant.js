@@ -71,7 +71,7 @@
     capability: {
       name: "Process Capability Analysis",
       zhName: "过程能力分析",
-      url: "https://ellenloog-coder.github.io/process-capability-analysis-tool/Blendex_CPK_Workspace_Integrated.html",
+      url: "https://ellenloog-coder.github.io/process-capability-analysis-tool/",
       comingSoon: false,
       reason: {
         en: "Use this when the engineering question is whether a process can consistently meet specification limits.",
