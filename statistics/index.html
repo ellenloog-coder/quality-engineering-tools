@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6LHE3VHP5H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6LHE3VHP5H');
+  </script>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="了解 Blendex Labs 的计算原则、统计假设、验证方法、结果差异和工程解释边界。">
+  <title>统计与算法说明 | Blendex Labs</title>
+  <style>
+    :root{--ink:#14171c;--muted:#68707b;--line:#e5e7eb;--soft:#f6f7f9;--panel:#fff}
+    *{box-sizing:border-box}
+    body{margin:0;background:#f7f8fa;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+    a{color:inherit}
+    .wrap{width:min(1120px,calc(100% - 40px));margin:0 auto}
+    main{padding:58px 0 80px}
+    .intro,.boundary{padding:36px 38px;border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:0 12px 32px rgba(17,24,39,.05)}
+    .eyebrow,.section-label{color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .intro h1{max-width:800px;margin:14px 0 12px;font-size:clamp(34px,6vw,60px);line-height:1.05;letter-spacing:-.045em}
+    .intro p{max-width:760px;margin:0;color:var(--muted);font-size:17px;line-height:1.7}
+    .section-head{margin:46px 0 16px}.section-head h2{margin:7px 0 0;font-size:28px;letter-spacing:-.025em}
+    .recommended-grid,.content-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .recommended-card,.content-card{border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:0 12px 32px rgba(17,24,39,.04);display:flex;flex-direction:column}
+    .recommended-card{min-height:210px;padding:26px;text-decoration:none}
+    .recommended-card h3,.content-card h3{margin:0 0 10px;font-size:21px;letter-spacing:-.02em}
+    .recommended-card p,.content-card p,.boundary p,.boundary li{color:var(--muted);font-size:15px;line-height:1.7}
+    .recommended-card p,.content-card p{margin:0}
+    .card-link{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:22px;font-size:14px;font-weight:750;text-decoration:none}
+    .content-card{min-height:250px;padding:25px}
+    .tag{align-self:flex-start;display:inline-block;margin-bottom:22px;padding:5px 9px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:11px;font-weight:800}
+    .status{margin-top:auto;padding-top:22px;color:var(--muted);font-size:12px;font-weight:750}
+    .recommended-card:hover,.content-card:hover{border-color:#d8dbe0;box-shadow:0 18px 40px rgba(17,24,39,.08)}
+    .boundary{margin-top:46px}.boundary h2{margin:10px 0 12px;font-size:26px}.boundary p{max-width:820px;margin:0 0 14px}.boundary-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px}.boundary h3{margin:0 0 8px;font-size:17px}.boundary ul{margin:0;padding-left:20px}.boundary li+li{margin-top:5px}
+    .footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}.footer a{color:inherit}
+    .site-top{border-bottom:1px solid var(--line);background:#fff}.site-inner{width:min(1480px,calc(100% - 48px));min-height:76px;margin:0 auto;display:flex;align-items:center;gap:38px}.site-brand{display:flex;align-items:center;gap:16px;min-width:235px;color:var(--ink);font-size:20px;font-weight:800;text-decoration:none}.site-brand img{width:56px;height:56px;object-fit:contain}.site-inner nav{display:flex;gap:8px;flex:1}.site-inner nav a{padding:14px 18px;border-radius:999px;color:var(--ink);font-weight:650;text-decoration:none;white-space:nowrap}.site-inner nav a:hover{background:#f1f2f4}.site-actions{display:flex;align-items:center;gap:22px}.site-actions a{color:var(--ink);font-size:14px;font-weight:650;text-decoration:none;white-space:nowrap}.site-actions .start{border-radius:999px;background:#14171c;color:#fff;padding:12px 18px}
+    @media(max-width:900px){.site-inner{gap:16px}.site-brand{min-width:auto}.site-actions a{display:none}.site-inner nav{overflow:auto}.site-inner nav a{padding:11px 10px;font-size:14px}}
+    @media(max-width:760px){.wrap{width:min(calc(100% - 28px),560px)}main{padding:35px 0 56px}.intro,.boundary{padding:28px 24px}.intro p{font-size:15px}.recommended-grid,.content-grid,.boundary-grid{grid-template-columns:1fr}.section-head{margin-top:34px}.recommended-card,.content-card{min-height:230px}}
+    @media(max-width:560px){.site-inner{width:calc(100% - 28px);min-height:68px;gap:8px}.site-brand{gap:8px;font-size:16px}.site-brand img{width:40px;height:40px}.site-inner nav{gap:2px}.site-inner nav a{padding:9px 7px;font-size:12px}.intro h1{font-size:36px}.section-head h2{font-size:24px}}
+  </style>
+</head>
+<body>
+  <header class="site-top"><div class="site-inner"><a class="site-brand" href="/"><img src="../assets/brand/blendex-labs-symbol.png" alt=""><span>Blendex Labs</span></a><nav><a href="/#tools">工作台</a><a href="/knowledge/">质识星球</a><a href="/community/">社区</a></nav><div class="site-actions"><a href="/">联系我们</a><a href="/">登录</a><a class="start" href="/#tools">开始使用</a></div></div></header>
+  <main class="wrap">
+    <section class="intro" aria-labelledby="statistics-title">
+      <div class="eyebrow">支持 / Statistics &amp; Algorithms</div>
+      <h1 id="statistics-title">统计与算法说明</h1>
+      <p>了解 Blendex Labs 的计算原则、统计假设、结果差异和工程解释边界。</p>
+    </section>
+
+    <div class="section-head"><div class="section-label">Recommended</div><h2>推荐先读</h2></div>
+    <section class="recommended-grid" aria-label="推荐先读">
+      <a class="recommended-card" href="#analysis-assumptions"><h3>统计结果成立需要哪些条件</h3><p>了解数据代表性、过程稳定性、测量系统和分布假设如何影响结果。</p><span class="card-link">查看内容规划 <span aria-hidden="true">→</span></span></a>
+      <a class="recommended-card" href="#engineering-decisions"><h3>从统计结果到工程决策</h3><p>理解指标、自动解释和最终工程判断之间的边界。</p><span class="card-link">查看内容规划 <span aria-hidden="true">→</span></span></a>
+    </section>
+
+    <div class="section-head"><div class="section-label">All topics</div><h2>全部内容</h2></div>
+    <section class="content-grid" aria-label="统计与算法说明内容入口">
+      <article class="content-card" id="calculation-principles"><span class="tag">计算原则</span><h3>Blendex Labs 如何处理统计计算</h3><p>说明输入数据、缺失值、分组结构、计算精度、结果显示，以及 Dashboard、图表和 Report 的一致性。</p><span class="status">首批内容规划</span></article>
+      <article class="content-card" id="analysis-assumptions"><span class="tag">分析假设</span><h3>统计结果成立需要哪些条件</h3><p>说明数据代表性、测量系统、过程稳定性、独立性、分布假设、样本量和规格来源等使用条件。</p><span class="status">首批内容规划</span></article>
+      <article class="content-card" id="engineering-decisions"><span class="tag">解释边界</span><h3>从统计结果到工程决策</h3><p>说明统计指标可以支持什么、自动解释不能替代什么，以及如何将统计发现转化为调查和验证行动。</p><span class="status">首批内容规划</span></article>
+      <article class="content-card" id="software-differences"><span class="tag">结果差异</span><h3>同一份数据为什么会得到不同结果</h3><p>按照输入数据、分析设置和计算口径，系统排查 Blendex Labs 与其他统计软件之间的结果差异。</p><span class="status">后续补充</span></article>
+      <article class="content-card" id="calculation-validation"><span class="tag">验证方法</span><h3>我们如何验证计算结果</h3><p>介绍参考数据、独立计算、前后端一致性、分析快照、边界测试和回归测试等质量控制方式。</p><span class="status">后续补充</span></article>
+      <article class="content-card" id="algorithm-changelog"><span class="tag">版本记录</span><h3>算法版本与计算变更记录</h3><p>区分显示调整、解释调整和计算调整，并记录可能影响已有结果的算法和规则变化。</p><span class="status">后续补充</span></article>
+    </section>
+
+    <section class="boundary" aria-labelledby="boundary-title">
+      <div class="section-label">Content boundary</div><h2 id="boundary-title">与工具内部用户手册的边界</h2>
+      <p>本模块只说明跨工具的共同计算原则和统计解释框架，避免与各工具的具体技术文档重复维护。</p>
+      <div class="boundary-grid"><div><h3>统计与算法说明负责</h3><ul><li>共同计算原则与结果一致性</li><li>跨工具的分析假设</li><li>软件结果差异的排查方法</li><li>统计结果与工程判断的边界</li><li>平台级验证方法和算法变更</li></ul></div><div><h3>工具内部手册负责</h3><ul><li>具体公式与指标定义</li><li>数据模板和操作步骤</li><li>特定工具的分析假设</li><li>特定工具的结果判定</li><li>特定工具的常见问题</li></ul></div></div>
+    </section>
+    <div class="footer"><a href="/knowledge/">← 返回质识星球</a></div>
+  </main>
+</body>
+</html>
