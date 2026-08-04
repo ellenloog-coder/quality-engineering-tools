@@ -9,4 +9,14 @@
     card.querySelectorAll('[data-en]').forEach(element=>{element.innerHTML=element.dataset.en});
   }
   list.insertBefore(card,list.firstElementChild);
+  const article=document.createElement('a');
+  article.className='article-card';
+  article.href='/knowledge/same-cpk-different-improvement-paths.html';
+  article.dataset.enHref='/knowledge/same-cpk-different-improvement-paths-en.html';
+  article.innerHTML='<div><span class="tag" data-en="Methodology Sharing">方法论分享</span><h2 data-en="Why does the same Cpk require completely different improvement plans?">相同的 Cpk，为什么需要完全不同的改善方案？</h2><p data-en="Determine the correct investigation path from process variation, centering and capability assumptions.">从过程波动、中心偏移与能力分析前提，确定正确的调查方向。</p></div><span class="meta"><span data-en="About 7 min read">约 7 分钟阅读</span><span class="meta-date" data-en="Published 2026-08-04">发布于 2026-08-04</span></span>';
+  if(document.documentElement.lang==='en'){
+    article.href=article.dataset.enHref;
+    article.querySelectorAll('[data-en]').forEach(element=>{element.innerHTML=element.dataset.en});
+  }
+  list.insertBefore(article,list.firstElementChild);
 })();
