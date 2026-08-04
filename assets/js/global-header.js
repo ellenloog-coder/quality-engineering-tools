@@ -94,6 +94,7 @@
 
   const dropdowns = [...document.querySelectorAll('.blendex-nav-dropdown')];
   const overlay = document.querySelector('.blendex-global-overlay');
+  const finePointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
   let closeTimer;
   let activeDropdown;
 
@@ -128,19 +129,40 @@
   dropdowns.forEach(dropdown => {
     const trigger = dropdown.querySelector('.blendex-nav-trigger');
     const menu = dropdown.querySelector('.blendex-mega-menu');
-    dropdown.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') openDropdown(dropdown); });
-    dropdown.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') scheduleClose(dropdown); });
-    menu.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') clearTimeout(closeTimer); });
-    menu.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') scheduleClose(dropdown); });
+    dropdown.addEventListener('mouseenter', () => {
+      if (!finePointerQuery.matches) return;
+      clearTimeout(closeTimer);
+      openDropdown(dropdown);
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      if (!finePointerQuery.matches) return;
+      scheduleClose(dropdown);
+    });
+    dropdown.addEventListener('focusin', () => {
+      if (!finePointerQuery.matches) return;
+      clearTimeout(closeTimer);
+      openDropdown(dropdown);
+    });
+    dropdown.addEventListener('focusout', event => {
+      if (!finePointerQuery.matches || dropdown.contains(event.relatedTarget)) return;
+      scheduleClose(dropdown);
+    });
     trigger.addEventListener('click', event => {
       event.stopPropagation();
-      if (activeDropdown === dropdown) closeDropdown(dropdown); else openDropdown(dropdown);
+      if (finePointerQuery.matches) openDropdown(dropdown);
+      else if (activeDropdown === dropdown) closeDropdown(dropdown);
+      else openDropdown(dropdown);
+    });
+    menu.addEventListener('click', event => {
+      event.stopPropagation();
+      if (event.target.closest('a')) closeDropdowns();
     });
   });
   overlay.addEventListener('click', closeDropdowns);
   document.addEventListener('click', event => { if (!event.target.closest('.blendex-nav-dropdown')) closeDropdowns(); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape') closeDropdowns(); });
   window.addEventListener('scroll', closeDropdowns, { passive: true });
+  finePointerQuery.addEventListener('change', closeDropdowns);
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialize, { once: true });

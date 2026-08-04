@@ -8,7 +8,7 @@
   }
 
   const globalHeaderScript = document.createElement('script');
-  globalHeaderScript.src = '/assets/js/global-header.js';
+  globalHeaderScript.src = '/assets/js/global-header.js?v=20260804-2';
   document.head.append(globalHeaderScript);
   const article = document.querySelector('[data-knowledge-article]');
   const tocNav = document.querySelector('[data-article-toc]');
