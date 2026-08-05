@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>When AQL Tables Cannot Answer Quality Risk: Why SQEs Need to Understand OC Curves | Blendex Labs</title>
+  <meta name="description" content="Explain the risk logic behind acceptance sampling plans and help SQEs understand how AQL, Ac/Re, and OC curves support supplier quality decisions.">
+  <meta name="keywords" content="AQL,Acceptance Sampling,OC Curve,Supplier Quality,SQE,Quality Risk,ISO 2859-1">
+  <link rel="canonical" href="https://blendexlab.com/knowledge/aql-oc-curve-sqe-risk-en.html"><link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article"><meta property="og:site_name" content="Blendex Labs"><meta property="og:title" content="When AQL Tables Cannot Answer Quality Risk: Why SQEs Need to Understand OC Curves"><meta property="og:description" content="Explain the risk logic behind acceptance sampling plans and help SQEs understand how AQL, Ac/Re, and OC curves support supplier quality decisions."><meta property="og:url" content="https://blendexlab.com/knowledge/aql-oc-curve-sqe-risk-en.html"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="When AQL Tables Cannot Answer Quality Risk: Why SQEs Need to Understand OC Curves"><meta name="twitter:description" content="Explain the risk logic behind acceptance sampling plans and help SQEs understand how AQL, Ac/Re, and OC curves support supplier quality decisions.">
+  <link rel="stylesheet" href="article.css"><script type="application/json" id="article-metadata">{"title":"When AQL Tables Cannot Answer Quality Risk: Why SQEs Need to Understand OC Curves","slug":"aql-oc-curve-sqe-risk-en","category":"Quality Best Practices","articleType":"Engineering Insight Narrative","summary":"Explain the risk logic behind acceptance sampling plans and help SQEs understand how AQL, Ac/Re, and OC curves support supplier quality decisions.","readingTime":"About 10 min","updatedAt":"2026-08-05","relatedTool":"AQL Sampling Plan Design Tool","tags":["AQL","Acceptance Sampling","OC Curve","Supplier Quality","SQE","Quality Risk","ISO 2859-1"]}</script>
+</head>
+<body>
+  <header class="kb-site-header"><div class="kb-site-inner"><a class="kb-brand" href="/"><img src="../assets/brand/blendex-labs-symbol.png" alt=""><span>Blendex Labs</span></a><nav class="kb-main-nav"><a href="/#tools">Workspace</a><a href="/knowledge/" aria-current="page">Knowledge Base</a><a href="/community/">Community</a></nav><div class="kb-header-actions"><button class="kb-header-lang" type="button" onclick="location.href='/knowledge/aql-oc-curve-sqe-risk.html'">中文</button><a href="/">Contact</a><a href="/">Log in</a><a class="kb-get-started" href="/#tools">Get started</a></div></div></header>
+  <main class="article-shell article-main" data-knowledge-article>
+    <p class="article-breadcrumb"><a href="/knowledge/">Knowledge Base</a> / <a href="/knowledge/quality-best-practices/">Quality Best Practices</a></p>
+    <header class="article-header"><span class="article-category">Quality Best Practices</span><h1>When AQL Tables Cannot Answer Quality Risk: Why SQEs Need to Understand OC Curves</h1><p class="article-summary">Explain the risk logic behind acceptance sampling plans and help SQEs understand how AQL, Ac/Re, and OC curves support supplier quality decisions.</p><div class="article-meta"><span>About 10 min read</span><span>AQL Sampling Plan Design Tool</span><span>Published 2026-08-05</span></div><div class="article-tags" aria-label="Article tags"><span>AQL</span><span>Acceptance Sampling</span><span>OC Curve</span><span>Supplier Quality</span><span>SQE</span><span>Quality Risk</span><span>ISO 2859-1</span></div></header>
+    <div class="article-layout"><div class="article-content">
+      <section class="quick-takeaways"><h2>Quick conclusions</h2><ul><li>AQL is not the defect rate permitted in a particular lot. It is a quality-level reference used when selecting an acceptance sampling plan.</li><li>Ac/Re determines how to judge a lot after the sample result is available; the OC curve shows the acceptance probability of the same rule across actual quality levels.</li><li>Every finite sampling plan carries both producer and consumer risk. Whether it is suitable depends on product risk, customer requirements, supplier process conditions, and inspection cost.</li><li>Acceptance sampling identifies risk at the delivery point; sustained risk reduction still requires process capability, SPC, MSA, and root-cause improvement.</li></ul></section>
+      <div class="callout core"><h3>Core conclusion</h3><p>Standard tables provide a consistent sampling and decision rule, while the OC curve reveals the risk behavior behind that rule. An SQE is responsible not only for applying Ac/Re, but also for determining whether the plan establishes a risk-control boundary appropriate to the product and supply-chain context.</p></div>
+      <div class="callout caution"><h3>Engineering note</h3><p>Producer risk α and consumer risk β must be interpreted against predefined good and unacceptable quality levels. Comparing risk values without the evaluation points, sample size, acceptance number, and statistical model can lead to the wrong conclusion.</p></div>
+      <div class="callout misconception"><h3>Common misconception</h3><p>AQL=1.0 does not mean that a lot is allowed to contain 1% nonconforming units. A plan derived from ISO 2859-1 is also not automatically the best engineering plan for the current product risk.</p></div>
+      <section data-article-body>
+      <h2>The engineering dispute behind a sampling plan</h2>
+      <p>In supplier quality management, SQEs often encounter this situation: a supplier lot is inspected according to the AQL sampling plan agreed by both parties, and the lot is ultimately rejected because the number of nonconforming units found in the sample exceeds the acceptance limit.</p>
+      <p>For the personnel performing the inspection, the result is usually clear because the sampling plan has already defined the sample size, acceptance number, and rejection number. However, once the issue moves into supplier quality communication, disputes often emerge. The supplier may argue that the lot contains thousands of units while the observed problems come from only a limited sample, so whether those defects truly represent the quality of the entire lot is open to discussion. The quality team, meanwhile, focuses on whether the current sampling rule has established a reasonable boundary for risk control.</p>
+      <p>Neither view is simply right or wrong. They reflect different levels of understanding of acceptance sampling.</p>
+      <p>For front-line inspection personnel, an AQL plan solves an execution question: under the defined conditions, how should the sampling result be used to decide whether a lot is accepted? For SQEs, quality managers, and supplier quality leaders, the more important question is: what quality risk does the sampling plan itself represent?</p>
+      <p>For example, can a genuinely good-quality lot be falsely rejected because of limited sampling? Can a lot whose quality level has clearly deteriorated still be accepted because the sample did not capture the problem? Does the current sampling plan align with product risk, customer requirements, and supply-chain management objectives?</p>
+      <p>These questions cannot be fully answered by looking only at the AQL value, sample size, and Ac/Re decision rule.</p>
+
+      <h2>From standard execution to risk understanding: the information behind an AQL plan</h2>
+      <p>In many manufacturing companies, AQL is often understood simply as a “defect-rate requirement.” For example, when a sampling plan is marked AQL=1.0, some people naturally assume that the lot is allowed to contain 1% nonconforming units.</p>
+      <p>But in acceptance sampling systems such as ISO 2859-1 and ANSI/ASQ Z1.4, AQL does not directly define how many defects a particular lot is allowed to contain. Instead, it serves as an important quality-level reference when selecting a sampling plan. A complete acceptance sampling plan must consider lot size, inspection level, AQL level, sample size, and acceptance and rejection rules. Together, these factors determine how a lot will be evaluated.</p>
+      <p>For example, for a lot of 3,000 units, the logic of ISO 2859-1 can be used to define the basic conditions of the current plan:</p>
+      <ul><li>Sampling standard: ISO 2859-1;</li><li>Inspection level: General Inspection Level II;</li><li>Inspection severity: Normal Inspection;</li><li>AQL: 1.0.</li></ul>
+      <figure><img src="/knowledge/assets/aql-oc-curve-sqe-risk/aql-plan-setup.png" alt="AQL sampling plan setup showing ISO 2859-1, lot size 3000, General Inspection Level II, normal inspection, and AQL 1.0"><figcaption>Figure 1 | Example background conditions for a sampling plan in the Blendex Labs AQL Sampling Plan Design Tool.</figcaption></figure>
+      <p>Under these conditions, the engineering team obtains the corresponding acceptance plan:</p>
+      <ul><li>Sample size n = 125;</li><li>Acceptance number Ac = 3;</li><li>Rejection number Re = 4.</li></ul>
+      <figure><img src="/knowledge/assets/aql-oc-curve-sqe-risk/acceptance-sampling-plan.png" alt="Acceptance sampling plan example with sample size 125, acceptance number 3, and rejection number 4"><figcaption>Figure 2 | Example of the current acceptance sampling plan.</figcaption></figure>
+      <p>Under this rule, the lot can be accepted when the number of nonconforming units in the 125 samples does not exceed 3. When the number reaches 4 or more, the lot is rejected.</p>
+      <p>This rule ensures that suppliers, factories, and customers use a consistent acceptance method, but it first answers one question: after the sample result is available, should this lot be accepted or rejected?</p>
+      <p>Quality management often needs to go further and ask: if the true quality level changes, can this rule identify the risk effectively?</p>
+      <p>This is the distinction between standard execution and engineering judgment.</p>
+
+      <h2>From Ac/Re to the OC curve: understanding how a sampling plan responds to quality changes</h2>
+      <p>In daily inspection, quality personnel usually focus on three questions: how many samples must be inspected, how many defects are allowed, and at what defect count the lot must be rejected. These questions belong to the execution level of a sampling plan.</p>
+      <p>For an SQE, however, knowing only the sample size and acceptance number is not enough. Supplier quality management is concerned not only with a single inspection result, but also with whether the current rule has sufficient ability to identify risk across different quality conditions.</p>
+      <p>For example, when a supplier process is stable and the defect level is low, is the current plan likely to cause false rejection? When the supplier process changes materially, can the plan increase the probability of rejection?</p>
+      <p>The OC curve (Operating Characteristic Curve) provides a way to analyze a sampling plan further. It describes how the probability that a lot will be accepted changes across different actual quality levels.</p>
+      <p>For the example plan:</p>
+      <ul><li>Sample size n = 125;</li><li>Acceptance number Ac = 3;</li><li>Rejection number Re = 4.</li></ul>
+      <p>The Blendex Labs AQL Sampling Plan Design Tool can generate the OC curve corresponding to this plan.</p>
+      <figure><img src="/knowledge/assets/aql-oc-curve-sqe-risk/oc-curve-risk-evaluation.png" alt="OC curve and risk evaluation example showing lot acceptance probability across quality levels and an engineering risk interpretation"><figcaption>Figure 3 | OC curve and risk evaluation for the sampling plan.</figcaption></figure>
+      <p>From an engineering perspective, the value of an OC curve is not to teach engineers a statistical curve. It is to let the quality team see how the current sampling rule responds to different quality states.</p>
+      <p>When the actual defect level is low, the lot usually has a higher probability of acceptance. As the actual quality level deteriorates, the probability of acceptance gradually decreases. A reasonable sampling plan should therefore distinguish appropriately between changing quality states: it should avoid excessive false rejection for processes that meet requirements and improve the ability to detect risk when a process clearly departs from the target.</p>
+      <p>This is why Ac/Re information alone is insufficient. Ac/Re tells the engineer the final decision rule, while the OC curve reveals the risk behavior behind that rule.</p>
+
+      <h2>Whether a sampling plan is suitable depends on the risk it carries</h2>
+      <p>Acceptance sampling does not inspect the entire lot. Because a decision is made from a limited number of samples, every sampling plan carries a degree of probability risk.</p>
+      <p>From a quality management perspective, two directions normally require attention.</p>
+      <p>Producer Risk (α) describes the possibility that a lot is incorrectly rejected because of sampling variation even though the supplier process has reached the expected quality level. For the supplier, this represents whether a process that already meets requirements may still incur additional loss because of the sampling result.</p>
+      <p>Consumer Risk (β) addresses the opposite situation: a lot is still accepted even though its quality level has already reached an unacceptable state. For the customer or user, this represents whether the current sampling plan can effectively prevent a high-risk lot from entering the downstream process.</p>
+      <p>In actual engineering analysis, α and β are not fixed values. They must be evaluated against predefined quality levels. For the current example plan, calculations at the selected quality evaluation points give:</p>
+      <ul><li>Producer Risk α = 3.7%;</li><li>Consumer Risk β = 12.4%.</li></ul>
+      <figure><img src="/knowledge/assets/aql-oc-curve-sqe-risk/producer-consumer-risk.png" alt="Producer and consumer risk evaluation showing producer risk 3.7 percent, consumer risk 12.4 percent, and sampling fraction 4.17 percent"><figcaption>Figure 4 | Example producer and consumer risk evaluation results.</figcaption></figure>
+      <p>This result does not mean that the current plan is necessarily wrong. It explains what protection the plan provides for different quality states under the current risk-evaluation conditions.</p>
+      <p>The engineering team must then judge: does the current risk level match the importance of the product? Should the sample size be increased? Should the acceptance criterion be adjusted? Should supplier quality variation be reduced through process improvement?</p>
+      <p>Selecting a sampling plan is fundamentally a balance among quality protection, supply-chain risk, and inspection cost.</p>
+
+      <h2>A standard plan is not necessarily the best engineering plan</h2>
+      <p>In many companies, the acceptance sampling process is usually performed as follows: select a plan according to standard requirements, obtain the sample size and decision rule from that plan, and then perform the inspection.</p>
+      <p>This approach follows the logic of applying the standard and provides a common acceptance basis between supplier and customer.</p>
+      <p>However, for high-risk products or critical quality characteristics, knowing only that “this plan comes from ISO 2859-1” is not enough to show that “this plan is appropriate for the current product.”</p>
+      <p>Different sampling plans represent different risk balances. Increasing the sample size usually improves the ability to distinguish quality differences, but it also requires more inspection resources. Reducing the acceptance number can improve sensitivity to abnormal lots, but it can also increase the probability of false rejection.</p>
+      <p>There is therefore no best sampling plan independent of its actual application environment.</p>
+      <p>Mature quality engineering judgment must consider product risk, defect severity, customer requirements, supplier process capability, and quality cost to determine whether the current plan truly meets the quality objective.</p>
+      <p>The standard provides a consistent method; the engineer must decide whether that method is appropriate for the current situation.</p>
+
+      <h2>How can an SQE use the OC curve to improve supplier quality communication?</h2>
+      <p>In supplier quality management, when a lot is rejected because of a sampling result, the discussion between the two parties often remains at: “Why should a few nonconforming units make the entire lot unacceptable?”</p>
+      <p>A more effective quality discussion should instead ask: has the current sampling plan established a quality-control boundary that matches the product-risk requirements?</p>
+      <p>An SQE can combine the sampling standard, lot information, inspection level, sample size, Ac/Re decision rule, and OC-curve analysis to explain the statistical logic behind the current decision to the supplier.</p>
+      <p>The focus then shifts from “can a few samples represent the whole lot?” to “can the current sampling rule meet the risk-control objective accepted by both parties?”</p>
+      <p>This is an important capability as an SQE moves beyond executing inspection rules toward managing supplier quality.</p>
+
+      <h2>After sampling identifies risk, improvement must return to process control</h2>
+      <p>Acceptance sampling addresses risk control at the delivery point. It answers whether the current lot carries an acceptance risk.</p>
+      <p>But if the supplier repeatedly experiences rejected lots, recurring defects, or quality variation, the manufacturing process itself is what truly needs improvement.</p>
+      <p>Further investigation should then combine process capability analysis, statistical process control, measurement system analysis, and 8D root-cause analysis to examine the sources of quality risk.</p>
+      <p>Process capability analysis helps the engineering team determine whether the process can stably meet specification requirements. SPC identifies process-change trends. MSA confirms whether measurement results are trustworthy. 8D drives the supplier to establish systematic improvement actions.</p>
+      <p>Sampling helps a company detect risk; process control helps it reduce risk.</p>
+      <p>In a mature quality system, these are not independent methods. They form a continuous process from risk identification to risk reduction.</p>
+
+      <h2>From looking up a plan to understanding sampling risk</h2>
+      <p>Traditional AQL application usually helps an engineer complete one task: obtain a sampling plan according to the requirements of a standard.</p>
+      <p>Supplier quality management requires the engineer to answer further questions: is this plan appropriate for the current product risk? What false-rejection and escape risks does it carry? How should different plans be balanced through engineering judgment?</p>
+      <p>When a company needs to understand the statistical characteristics behind a sampling plan, the standard tables alone usually do not provide enough information.</p>
+      <p>The Blendex Labs AQL Sampling Plan Design Tool combines standard sampling plans, OC curves, and risk evaluation to help quality engineers understand the sample size, acceptance rule, and changes in acceptance probability across quality levels in the current plan.</p>
+      <p>Its value is not to replace standards such as ISO 2859-1, but to help engineers understand the engineering meaning behind a standard plan.</p>
+      <p>It moves the work from “look up a result in a table” toward “understand how that result supports a quality decision.”</p>
+      <p>The final sampling level, risk-acceptance criteria, and quality disposition still require engineering judgment based on product risk, customer requirements, and the company’s quality strategy.</p>
+
+      <h2>References</h2>
+      <ol><li><strong>ISO 2859-1.</strong> Sampling procedures for inspection by attributes — Part 1: Sampling schemes indexed by acceptance quality limit (AQL) for lot-by-lot inspection.</li><li><strong>ANSI/ASQ Z1.4.</strong> Sampling Procedures and Tables for Inspection by Attributes.</li><li><strong>ISO 28590.</strong> Sampling procedures for inspection by attributes — Introduction to the ISO 2859 series.</li><li><strong>NIST/SEMATECH e-Handbook of Statistical Methods.</strong> Acceptance Sampling.</li><li><strong>Squeglia, Nicholas L.</strong> Zero Acceptance Number Sampling Plans.</li></ol>
+    </section>
+    <section class="related-tools"><h2>Related Tool</h2><a class="tool-card" href="https://ellenloog-coder.github.io/sampling-plan-design-tool/" target="_blank" rel="noopener noreferrer"><span><strong>AQL Sampling Plan Design Tool</strong><span>This tool helps quality engineers understand the statistical characteristics behind standard sampling plans, including the OC curve, acceptance probability, and risk evaluation.</span></span><span class="tool-button">Open analysis tool</span></a></section>
+    </div><details class="article-toc" open><summary>Table of contents</summary><nav data-article-toc></nav></details></div>
+    <footer class="article-footer"><a href="/knowledge/quality-best-practices/">← Back to Quality Best Practices</a></footer>
+  </main>
+  <script src="article.js"></script><script>localStorage.setItem("quality-tools-language","en");</script>
+</body>
+</html>
