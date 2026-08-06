@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6LHE3VHP5H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6LHE3VHP5H');
+</script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Blendex Labs 如何处理统计计算 | Blendex Labs</title>
+  <meta name="description" content="说明 Blendex Labs 在统计分析过程中的数据处理原则，包括输入数据识别、缺失值处理、分组结构解析、计算精度控制，以及 Dashboard、图表和 Report 之间的结果一致性。">
+  <link rel="stylesheet" href="../knowledge/article.css">
+  <style>
+    .article-content pre{overflow-x:auto;margin:22px 0;padding:16px 18px;border:1px solid var(--article-line);border-radius:12px;background:var(--article-soft);font:13.5px/1.75 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre}
+    .article-content pre code{font:inherit;color:var(--article-ink)}
+    .article-pipeline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0;padding:16px 18px;border:1px solid var(--article-line);border-radius:12px;background:var(--article-panel);font-size:15px;font-weight:750}
+    .article-pipeline span{color:var(--article-muted);font-weight:400}
+    @media(max-width:560px){.article-content pre{font-size:12px}}
+  </style>
+</head>
+<body>
+  <script type="application/json" id="article-metadata">{"title":"Blendex Labs 如何处理统计计算","slug":"blendex-labs-statistics-processing","category":"统计与算法说明","summary":"说明 Blendex Labs 在统计分析过程中的数据处理原则，包括输入数据识别、缺失值处理、分组结构解析、计算精度控制，以及 Dashboard、图表和 Report 之间的结果一致性。","readingTime":"约 4 分钟","updatedAt":"2026-08-06","relatedTool":"Process Capability Analysis Tool","tags":["统计计算","数据解析","结果一致性"],"quickTakeaways":["系统不会改变用户输入的原始测量值。","缺失值不会被自动填充或隐藏，无效记录会被排除并显示有效样本量。","数据结构识别是正确计算的前提，结构错误时公式正确也可能得到错误结论。","内部计算保留完整精度，仅显示层按工程阅读习惯格式化。","Dashboard、图表与 Report 使用同一结果模型，保证结果一致。","统计结果与工程解释分离，解释不会改变统计数字。"],"relatedArticles":[]}</script>
+  <header class="kb-site-header"><div class="kb-site-inner"><a class="kb-brand" href="/"><img src="../assets/brand/blendex-labs-symbol.png" alt=""><span>Blendex Labs</span></a><nav class="kb-main-nav"><a href="/#tools">工作台</a><a href="/knowledge/index.html" aria-current="page">质识星球</a><a href="/community/">社区</a></nav><div class="kb-header-actions"><a href="/">联系我们</a><a href="/">登录</a><a class="kb-get-started" href="/#tools">开始使用</a></div></div></header>
+  <main class="article-shell article-main" data-knowledge-article>
+    <p class="article-breadcrumb"><a href="/knowledge/">质识星球</a> / <a href="/statistics/">统计与算法说明</a></p>
+    <header class="article-header"><span class="article-category">统计与算法说明</span><h1>Blendex Labs 如何处理统计计算</h1><p class="article-summary">说明 Blendex Labs 在统计分析过程中的数据处理原则，包括输入数据识别、缺失值处理、分组结构解析、计算精度控制，以及 Dashboard、图表和 Report 之间的结果一致性。</p><div class="article-meta"><span>约 4 分钟阅读</span><span>Process Capability Analysis Tool</span><span>更新于 2026-08-06</span></div></header>
+    <div class="article-layout"><div class="article-content"><section class="quick-takeaways"><h2>快速结论</h2><ul><li>系统不会改变用户输入的原始测量值，只识别分析对象与分组结构；</li><li>缺失值不会被自动填充或隐藏，无效记录会被排除并显示有效样本量；</li><li>数据结构识别是正确计算的前提，结构错误时公式正确也可能得到错误结论；</li><li>内部计算保留完整精度，显示层才按工程阅读习惯格式化；</li><li>Dashboard、图表与 Report 来自同一个结果模型，不会出现不同数字；</li><li>统计结果与工程解释分离，解释用于辅助判断，但不会改变统计数字。</li></ul></section><div class="callout core"><h3>核心结论</h3><p>统计结果的可信度来自整条数据链路：数据输入、结构解析、统计计算与展示必须透明且一致，才能被理解、验证和追溯。</p></div><div class="callout caution"><h3>工程注意</h3><p>数据结构错误时，即使公式正确也可能得到错误结论。分析前先确认分组字段与分析需求匹配，必要时应补充数据后再计算。</p></div><div class="callout misconception"><h3>常见误区</h3><p>排除无效记录不等于忽略缺失问题。删除记录后应确认剩余数据仍能代表分析对象，并留意有效样本量对结论的影响。</p></div><section data-article-body><h2>为什么统计计算需要透明？</h2><p>统计工具的核心价值不仅在于输出一个结果，而在于确保这个结果来自正确的数据、正确的计算方法以及一致的展示逻辑。</p><p>在质量工程场景中，一个统计指标通常会影响后续判断：</p><ul><li>是否接受当前过程能力？</li><li>是否需要改善？</li><li>是否需要重新验证？</li><li>是否存在潜在质量风险？</li></ul><p>因此，一个可信的统计工具需要回答：</p><blockquote><p>这个结果是如何产生的？</p></blockquote><p>Blendex Labs 将统计计算过程拆分为：</p><div class="article-pipeline"><span>数据输入</span> → <span>数据解析</span> → <span>统计计算</span> → <span>结果模型</span> → <span>可视化展示</span></div><p>每一个阶段都保持透明和可追溯。</p><h2>1. 输入数据处理</h2><p>Blendex Labs 支持：</p><ul><li>Excel 文件</li><li>CSV 文件</li><li>数据复制粘贴</li><li>示例数据</li></ul><p>数据进入系统后，首先进行结构识别，包括：</p><ul><li>测量变量</li><li>分组字段</li><li>样本数量</li><li>数据类型</li><li>规格限制</li></ul><p>系统不会改变用户输入的原始测量值。例如：</p><table><thead><tr><th>Part</th><th>Measurement</th></tr></thead><tbody><tr><td>A</td><td>10.02</td></tr><tr><td>A</td><td>10.05</td></tr><tr><td>B</td><td>10.11</td></tr></tbody></table><p>系统会理解：</p><ul><li>Measurement 是分析对象</li><li>Part 是分类结构</li></ul><p>而不是简单将所有数字混合处理。</p><h2>2. 缺失值处理</h2><p>统计计算依赖真实数据，因此 Blendex Labs 不会：</p><ul><li>自动填充缺失值</li><li>隐藏无效数据</li><li>修改用户记录</li></ul><p>系统会识别：</p><ul><li>空白单元格</li><li>非数字输入</li><li>不完整记录</li></ul><p>根据影响程度进行处理：</p><h3>可继续分析</h3><p>例如：部分记录缺少测量值。系统会：</p><ul><li>排除无效记录</li><li>保留有效数据</li><li>显示有效样本数量</li></ul><p>例如：</p><pre><code>Total records: 100
+
+Valid observations: 98
+
+Excluded: 2
+Reason: Missing value</code></pre><h3>无法保证统计有效性</h3><p>例如：MSA 分析缺少：</p><ul><li>Operator</li><li>Part</li><li>Trial</li></ul><p>系统会要求补充数据，而不是生成可能误导的结果。</p><h2>3. 数据分组结构解析</h2><p>不同统计方法依赖不同的数据结构。Blendex Labs 不仅处理数字，也保留工程数据关系。例如：</p><h3>过程能力分析</h3><p>可能需要：</p><ul><li>单列测量值</li><li>子组结构</li></ul><h3>MSA</h3><p>需要：</p><pre><code>Part
+Operator
+Trial
+Measurement</code></pre><h3>DOE</h3><p>需要：</p><pre><code>Factor
+Level
+Response</code></pre><p>如果数据结构错误，即使公式正确，也可能得到错误结论。因此，数据结构识别是统计计算的重要部分。</p><h2>4. 计算精度控制</h2><p>Blendex Labs 区分：</p><h3>内部计算精度</h3><p>统计计算过程中保留完整数值。例如：</p><pre><code>Cpk = 1.34678291</code></pre><p>不会提前四舍五入。</p><h3>显示精度</h3><p>根据工程阅读需求进行格式化。例如：</p><p>Dashboard：</p><pre><code>Cpk = 1.35</code></pre><p>Report：</p><pre><code>Process Capability Index:
+1.35</code></pre><p>显示简洁，但计算过程保持精确。</p><h2>5. 统一结果模型</h2><p>为了避免不同页面出现不同结果，Blendex Labs 使用统一计算结果模型：</p><pre><code>Input Data
+
+↓
+
+Statistical Engine
+
+↓
+
+Result Model
+
+↓
+
+Dashboard
+Chart
+Report</code></pre><p>这意味着：</p><ul><li>Dashboard 显示的数据来自同一个计算结果；</li><li>图表使用同一个统计参数；</li><li>Report 引用同一次分析结果。</li></ul><p>不会出现：</p><ul><li>Dashboard 一个数字</li><li>图表另一个数字</li><li>Report 第三个数字</li></ul><h2>6. 统计结果与工程解释分离</h2><p>Blendex Labs 将输出分为三个层级：</p><h3>数据层（Data）</h3><p>真实输入。例如：</p><pre><code>Sample size = 450
+Mean = 10.02
+Range = 9.82–10.21</code></pre><h3>计算层（Statistics）</h3><p>统计算法输出。例如：</p><pre><code>Cp = 1.42
+Cpk = 1.35
+Ppk = 1.28</code></pre><h3>解释层（Engineering Interpretation）</h3><p>工程含义。例如：</p><blockquote><p>Process capability meets the defined requirement.</p></blockquote><p>解释用于辅助判断，但不会改变统计结果。</p><h2>7. 计算结果可追溯</h2><p>每次分析结果关联：</p><ul><li>工具版本</li><li>分析方法</li><li>数据结构</li><li>参数设置</li></ul><p>例如：</p><pre><code>Tool:
+Blendex Labs CPK Analysis
+
+Method:
+Subgroup Capability Analysis
+
+Version:
+v1.0 Beta</code></pre><p>保证同样的数据和参数能够得到一致结果。</p><h2>总结</h2><p>统计工具的价值不仅是计算公式，而是建立一条可信的数据链路。Blendex Labs 通过：</p><ul><li>明确的数据输入规则</li><li>可见的缺失值处理</li><li>保留工程数据结构</li><li>高精度计算</li><li>统一结果模型</li></ul><p>确保每一个统计结果都能够被理解、验证和追溯。</p></section><section class="related-tools"><h2>关联工具</h2><a class="tool-card" href="https://ellenloog-coder.github.io/process-capability-analysis-tool/" target="_blank" rel="noopener noreferrer"><span><strong>Process Capability Analysis Tool</strong><span>使用实际数据完成 Cp、Cpk、Pp、Ppk 分析，并获得工程解释和报告。</span></span><span class="tool-button">打开分析工具</span></a></section><section class="related-reading"><h2>相关阅读</h2><div class="related-list"><a class="related-card" href="/statistics/"><strong>统计与算法说明</strong><span>支持 · 计算原则与解释边界</span></a><a class="related-card" href="/knowledge/methodology/"><strong>方法论与标准解读</strong><span>质识星球 · 方法论与标准</span></a><a class="related-card" href="/knowledge/quality-best-practices/"><strong>质量最佳实践</strong><span>质识星球 · 工程实践</span></a></div></section></div><details class="article-toc" open><summary>本文目录</summary><nav data-article-toc></nav></details></div>
+    <footer class="article-footer"><a href="/statistics/">← 返回统计与算法说明</a></footer>
+  </main>
+  <script src="../knowledge/article.js"></script>
+</body>
+</html>
