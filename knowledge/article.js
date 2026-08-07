@@ -66,10 +66,14 @@
     const shareBtn = document.createElement('button');
     shareBtn.type = 'button';
     shareBtn.className = 'article-share';
+    const shareIcon = document.createElement('span');
+    shareIcon.className = 'article-share-icon';
+    shareIcon.setAttribute('aria-hidden', 'true');
+    shareIcon.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
     const shareSpan = document.createElement('span');
     shareSpan.setAttribute('aria-live', 'polite');
     shareSpan.textContent = shareLabel;
-    shareBtn.append(shareSpan);
+    shareBtn.append(shareIcon, shareSpan);
     row.append(helpfulBtn, shareBtn);
     metaRow.insertAdjacentElement('afterend', row);
 

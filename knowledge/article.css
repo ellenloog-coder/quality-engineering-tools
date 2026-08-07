@@ -13,5 +13,6 @@
 .tool-card .tool-button{border-radius:999px;background:#eeecff;color:#5d56dc;padding:9px 16px;font-size:14px}
 .article-interactions{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px;margin-top:16px;color:var(--article-muted)}
 .article-interactions button{display:inline-flex;align-items:center;border:0;background:transparent;margin:0;padding:7px 2px;font:inherit;font-size:13px;font-weight:700;line-height:1.4;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.article-interactions button:hover,.article-interactions button:focus-visible,.article-interactions .article-helpful[aria-pressed="true"],.article-interactions .article-share.is-copied{color:var(--article-ink)}
+.article-interactions button:hover,.article-interactions button:focus-visible,.article-interactions .article-helpful[aria-pressed="true"]{color:var(--article-ink)}
 .article-interactions button:focus-visible{outline:2px solid var(--article-ink);outline-offset:3px;border-radius:5px}
+.article-interactions .article-share{background:#f1eeff;color:#6d5ce7;border-radius:999px;min-height:36px;padding:0 14px;gap:6px;font-size:14px;font-weight:600;transition:background-color .15s ease}.article-interactions .article-share svg{flex:none;width:15px;height:15px}.article-interactions .article-share:hover,.article-interactions .article-share:focus-visible{background:#e7e1ff;color:#6d5ce7}.article-interactions .article-share:focus-visible{outline:2px solid #6d5ce7;outline-offset:2px}.article-interactions .article-share.is-copied{background:#e7e1ff;color:#6d5ce7}
