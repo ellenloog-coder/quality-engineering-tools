@@ -35,7 +35,17 @@
 
 目前 metadata 主要用于内容维护和未来索引；页面展示字段仍保持显式 HTML，避免引入复杂渲染器。
 
-为保持列表易读，单篇文章默认控制在 3 分钟以内；信息量较大的主题应拆成系列文章或另建长文资料，不要在列表中标注过长的阅读时间。
+**阅读时间**：Insight 类型文章统一控制在 3–5 分钟阅读。`readingTime` 字段是人工控制的唯一入口，页面展示由 `article.js` 按固定规则自动处理：优先读取 metadata 中的 `readingTime`，否则解析页面现有阅读时间文本，并统一限制在 5 分钟以内（上限 5、下限 1），显示为「5 分钟阅读」或「5 min read」。不要自行标注「15 分钟阅读」之类的超长阅读时间，也不要依赖 AI 估算。
+
+## 文章互动（Helpful / Share）
+
+所有文章页会自动注入轻量互动区，位于 metadata 与 Tags 之间，无需在 HTML 中手工添加：
+
+- **Helpful**：匿名反馈，点击后「👍 Helpful」变为「✓ Helpful」，不显示数量、不要求登录、不建立评论；状态按文章保存在浏览器 localStorage。
+- **Share**：移动端支持 `navigator.share` 时调用系统分享，否则复制当前文章 URL 到剪贴板，并显示 2 秒「Link copied / 链接已复制」反馈。
+- **Analytics**：点击 Helpful 时发送 `article_helpful_click` 事件（gtag 或 dataLayer），事件携带 `article` 字段（当前页 slug）。
+
+这些组件由 `knowledge/article.js` 统一注入、`knowledge/article.css` 统一样式，新增文章自动继承，不要复制互动代码到单篇文章中。
 
 ## 正文、表格和公式
 

@@ -11,3 +11,7 @@
 @media(max-width:900px){.kb-site-inner{gap:16px}.kb-brand{min-width:auto}.kb-header-actions a{display:none}.kb-main-nav{overflow:auto}.kb-main-nav a{padding:11px 10px;font-size:14px}}
 @media(max-width:560px){.kb-site-inner{width:calc(100% - 28px);min-height:68px;gap:8px}.kb-brand{gap:8px;font-size:16px}.kb-brand img{width:40px;height:40px}.kb-main-nav{gap:2px}.kb-main-nav a{padding:9px 7px;font-size:12px}}
 .tool-card .tool-button{border-radius:999px;background:#eeecff;color:#5d56dc;padding:9px 16px;font-size:14px}
+.article-interactions{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px;margin-top:16px;color:var(--article-muted)}
+.article-interactions button{display:inline-flex;align-items:center;border:0;background:transparent;margin:0;padding:7px 2px;font:inherit;font-size:13px;font-weight:700;line-height:1.4;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.article-interactions button:hover,.article-interactions button:focus-visible,.article-interactions .article-helpful[aria-pressed="true"],.article-interactions .article-share.is-copied{color:var(--article-ink)}
+.article-interactions button:focus-visible{outline:2px solid var(--article-ink);outline-offset:3px;border-radius:5px}

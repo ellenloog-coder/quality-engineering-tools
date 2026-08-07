@@ -1,13 +1,22 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6LHE3VHP5H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-6LHE3VHP5H');
+  </script><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>When AQL Tables Cannot Answer Quality Risk: Why SQEs Need to Understand OC Curves | Blendex Labs</title>
   <meta name="description" content="Explain the risk logic behind acceptance sampling plans and help SQEs understand how AQL, Ac/Re, and OC curves support supplier quality decisions.">
   <meta name="keywords" content="AQL,Acceptance Sampling,OC Curve,Supplier Quality,SQE,Quality Risk,ISO 2859-1">
   <link rel="canonical" href="https://blendexlab.com/knowledge/aql-oc-curve-sqe-risk-en.html"><link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="article"><meta property="og:site_name" content="Blendex Labs"><meta property="og:title" content="When AQL Tables Cannot Answer Quality Risk: Why SQEs Need to Understand OC Curves"><meta property="og:description" content="Explain the risk logic behind acceptance sampling plans and help SQEs understand how AQL, Ac/Re, and OC curves support supplier quality decisions."><meta property="og:url" content="https://blendexlab.com/knowledge/aql-oc-curve-sqe-risk-en.html"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="When AQL Tables Cannot Answer Quality Risk: Why SQEs Need to Understand OC Curves"><meta name="twitter:description" content="Explain the risk logic behind acceptance sampling plans and help SQEs understand how AQL, Ac/Re, and OC curves support supplier quality decisions.">
-  <link rel="stylesheet" href="article.css"><script type="application/json" id="article-metadata">{"title":"When AQL Tables Cannot Answer Quality Risk: Why SQEs Need to Understand OC Curves","slug":"aql-oc-curve-sqe-risk-en","category":"Quality Best Practices","articleType":"Engineering Insight Narrative","summary":"Explain the risk logic behind acceptance sampling plans and help SQEs understand how AQL, Ac/Re, and OC curves support supplier quality decisions.","readingTime":"About 10 min","updatedAt":"2026-08-05","relatedTool":"AQL Sampling Plan Design Tool","tags":["AQL","Acceptance Sampling","OC Curve","Supplier Quality","SQE","Quality Risk","ISO 2859-1"]}</script>
+  <link rel="stylesheet" href="article.css"><script type="application/json" id="article-metadata">{"title":"When AQL Tables Cannot Answer Quality Risk: Why SQEs Need to Understand OC Curves","slug":"aql-oc-curve-sqe-risk-en","category":"Quality Best Practices","articleType":"Engineering Insight Narrative","summary":"Explain the risk logic behind acceptance sampling plans and help SQEs understand how AQL, Ac/Re, and OC curves support supplier quality decisions.","readingTime":"About 5 min","updatedAt":"2026-08-05","relatedTool":"AQL Sampling Plan Design Tool","tags":["AQL","Acceptance Sampling","OC Curve","Supplier Quality","SQE","Quality Risk","ISO 2859-1"]}</script>
 </head>
 <body>
   <header class="kb-site-header"><div class="kb-site-inner"><a class="kb-brand" href="/"><img src="../assets/brand/blendex-labs-symbol.png" alt=""><span>Blendex Labs</span></a><nav class="kb-main-nav"><a href="/#tools">Workspace</a><a href="/knowledge/" aria-current="page">Knowledge Base</a><a href="/community/">Community</a></nav><div class="kb-header-actions"><button class="kb-header-lang" type="button" onclick="location.href='/knowledge/aql-oc-curve-sqe-risk.html'">中文</button><a href="/">Contact</a><a href="/">Log in</a><a class="kb-get-started" href="/#tools">Get started</a></div></div></header>

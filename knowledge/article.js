@@ -12,9 +12,121 @@
   document.head.append(globalHeaderScript);
   const article = document.querySelector('[data-knowledge-article]');
   const tocNav = document.querySelector('[data-article-toc]');
+  const english = document.documentElement.lang.toLowerCase().startsWith('en');
+  const pageSlug = (location.pathname.split('/').pop() || 'index.html').replace(/\.html$/, '');
+  const metaRow = article ? article.querySelector('.article-meta') : null;
+
+  // ---- Reading time: fixed rule (cap at 5 min), manual override via metadata.readingTime ----
+  if (metaRow) {
+    let minutes = null;
+    const mdScript = document.querySelector('#article-metadata') || document.querySelector('script[type="application/json"]');
+    if (mdScript) {
+      try {
+        const md = JSON.parse(mdScript.textContent);
+        const raw = md && md.readingTime;
+        if (raw) {
+          const m = String(raw).match(/\d+(?:\.\d+)?/);
+          if (m) minutes = parseFloat(m[0]);
+        }
+      } catch (err) { /* fall back to visible HTML value */ }
+    }
+    if (minutes === null) {
+      const rtSpan = [...metaRow.querySelectorAll('span')].find(s => /阅读|read/i.test(s.textContent));
+      const m = rtSpan ? rtSpan.textContent.match(/\d+(?:\.\d+)?/) : null;
+      if (m) minutes = parseFloat(m[0]);
+    }
+    const applyReadingTime = node => {
+      if (!node || minutes === null || !Number.isFinite(minutes)) return;
+      const clamped = Math.min(5, Math.max(1, Math.round(minutes)));
+      const label = english ? `${clamped} min read` : `${clamped} 分钟阅读`;
+      node.textContent = node.textContent
+        .replace(/(?:约\s*)?\d+(?:\.\d+)?\s*分钟阅读/g, label)
+        .replace(/(?:About\s*)?\d+(?:\.\d+)?\s*min read/gi, label);
+    };
+    applyReadingTime([...metaRow.querySelectorAll('span')].find(s => /阅读|read/i.test(s.textContent)));
+    document.querySelectorAll('.related-reading .related-card span').forEach(applyReadingTime);
+  }
+
+  // ---- Interaction: Helpful + Share (lightweight, anonymous, auto-injected) ----
+  if (metaRow && metaRow.parentElement && !metaRow.parentElement.querySelector('.article-interactions')) {
+    const helpfulLabel = english ? '👍 Helpful' : '👍 有帮助';
+    const helpfulDoneLabel = english ? '✓ Helpful' : '✓ 有帮助';
+    const shareLabel = english ? 'Share' : '分享';
+    const copiedLabel = english ? 'Link copied' : '链接已复制';
+    const row = document.createElement('div');
+    row.className = 'article-interactions';
+    row.setAttribute('aria-label', english ? 'Article actions' : '文章互动');
+    const helpfulBtn = document.createElement('button');
+    helpfulBtn.type = 'button';
+    helpfulBtn.className = 'article-helpful';
+    helpfulBtn.setAttribute('aria-pressed', 'false');
+    const helpfulSpan = document.createElement('span');
+    helpfulSpan.textContent = helpfulLabel;
+    helpfulBtn.append(helpfulSpan);
+    const shareBtn = document.createElement('button');
+    shareBtn.type = 'button';
+    shareBtn.className = 'article-share';
+    const shareSpan = document.createElement('span');
+    shareSpan.setAttribute('aria-live', 'polite');
+    shareSpan.textContent = shareLabel;
+    shareBtn.append(shareSpan);
+    row.append(helpfulBtn, shareBtn);
+    metaRow.insertAdjacentElement('afterend', row);
+
+    const helpfulKey = `blendex:helpful:${pageSlug}`;
+    const setHelpful = pressed => {
+      helpfulBtn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+      helpfulSpan.textContent = pressed ? helpfulDoneLabel : helpfulLabel;
+    };
+    let helpful = false;
+    try { helpful = localStorage.getItem(helpfulKey) === '1'; } catch (err) { /* storage unavailable */ }
+    setHelpful(helpful);
+    helpfulBtn.addEventListener('click', () => {
+      if (helpful) return;
+      helpful = true;
+      setHelpful(true);
+      try { localStorage.setItem(helpfulKey, '1'); } catch (err) { /* storage unavailable */ }
+      if (typeof gtag === 'function') gtag('event', 'article_helpful_click', { article: pageSlug });
+      else if (window.dataLayer) window.dataLayer.push({ event: 'article_helpful_click', article: pageSlug });
+    });
+
+    const copyToClipboard = url => {
+      if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(url);
+      return new Promise((resolve, reject) => {
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.append(ta);
+        ta.select();
+        try { document.execCommand('copy') ? resolve() : reject(new Error('Copy failed')); }
+        catch (err) { reject(err); }
+        ta.remove();
+      });
+    };
+    const isMobile = /Android|iPhone|iPad|iPod|Windows Phone|Mobile/i.test(navigator.userAgent);
+    let copyTimer = null;
+    shareBtn.addEventListener('click', async () => {
+      if (navigator.share && isMobile) {
+        try { await navigator.share({ title: document.title, url: location.href }); } catch (err) { /* dismissed */ }
+        return;
+      }
+      try {
+        await copyToClipboard(location.href);
+        shareSpan.textContent = copiedLabel;
+        shareBtn.classList.add('is-copied');
+        clearTimeout(copyTimer);
+        copyTimer = setTimeout(() => {
+          shareSpan.textContent = shareLabel;
+          shareBtn.classList.remove('is-copied');
+        }, 2000);
+      } catch (err) { /* clipboard unavailable */ }
+    });
+  }
+
   if (!article || !tocNav) return;
   const categoryPath = '/knowledge/methodology/';
-  const english = document.documentElement.lang.toLowerCase().startsWith('en');
   if ((location.pathname.includes('msa-method-selection') || location.pathname.includes('cpk-high-npi')) && !document.querySelector('.article-tags')) {
     const tags = location.pathname.includes('cpk-high-npi')
       ? (english ? ['Process Capability', 'Cpk', 'Ppk', 'NPI Release', 'Mass Production Stability'] : ['过程能力', 'Cpk', 'Ppk', 'NPI 放行', '量产稳定性'])
