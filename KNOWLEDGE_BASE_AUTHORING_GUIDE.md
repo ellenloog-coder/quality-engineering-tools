@@ -47,6 +47,8 @@
 
 这些组件由 `knowledge/article.js` 统一注入、`knowledge/article.css` 统一样式，新增文章自动继承，不要复制互动代码到单篇文章中。
 
+> **脚本版本参数**：文章页统一用 `<script src="article.js?v=YYYYMMDD-N"></script>`（statistics/ 和 community/ 下为 `../knowledge/article.js?v=...`）加载互动脚本，版本号遵循全站资源惯例（如 `?v=20260807-1`）。不要使用无版本号的 `article.js` 引用：Service Worker 对 JS 走 stale-while-revalidate，无版本号会导致线上更新后浏览器仍命中旧缓存、新组件不出现。
+
 ## 正文、表格和公式
 
 - H1 只能有一个；章节使用 H2，子章节使用 H3。
