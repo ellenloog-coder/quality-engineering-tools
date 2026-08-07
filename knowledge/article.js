@@ -47,22 +47,10 @@
     document.querySelectorAll('.related-reading .related-card span').forEach(applyReadingTime);
   }
 
-  // ---- Interaction: Helpful + Share (lightweight, anonymous, auto-injected) ----
-  if (metaRow && metaRow.parentElement && !metaRow.parentElement.querySelector('.article-interactions')) {
-    const helpfulLabel = english ? '👍 Helpful' : '👍 有帮助';
-    const helpfulDoneLabel = english ? '✓ Helpful' : '✓ 有帮助';
+  // ---- Share action (lightweight, anonymous, inline in the metadata row) ----
+  if (metaRow && !metaRow.querySelector('.article-share')) {
     const shareLabel = english ? 'Share' : '分享';
     const copiedLabel = english ? 'Link copied' : '链接已复制';
-    const row = document.createElement('div');
-    row.className = 'article-interactions';
-    row.setAttribute('aria-label', english ? 'Article actions' : '文章互动');
-    const helpfulBtn = document.createElement('button');
-    helpfulBtn.type = 'button';
-    helpfulBtn.className = 'article-helpful';
-    helpfulBtn.setAttribute('aria-pressed', 'false');
-    const helpfulSpan = document.createElement('span');
-    helpfulSpan.textContent = helpfulLabel;
-    helpfulBtn.append(helpfulSpan);
     const shareBtn = document.createElement('button');
     shareBtn.type = 'button';
     shareBtn.className = 'article-share';
@@ -74,25 +62,9 @@
     shareSpan.setAttribute('aria-live', 'polite');
     shareSpan.textContent = shareLabel;
     shareBtn.append(shareIcon, shareSpan);
-    row.append(helpfulBtn, shareBtn);
-    metaRow.appendChild(row);
-
-    const helpfulKey = `blendex:helpful:${pageSlug}`;
-    const setHelpful = pressed => {
-      helpfulBtn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
-      helpfulSpan.textContent = pressed ? helpfulDoneLabel : helpfulLabel;
-    };
-    let helpful = false;
-    try { helpful = localStorage.getItem(helpfulKey) === '1'; } catch (err) { /* storage unavailable */ }
-    setHelpful(helpful);
-    helpfulBtn.addEventListener('click', () => {
-      if (helpful) return;
-      helpful = true;
-      setHelpful(true);
-      try { localStorage.setItem(helpfulKey, '1'); } catch (err) { /* storage unavailable */ }
-      if (typeof gtag === 'function') gtag('event', 'article_helpful_click', { article: pageSlug });
-      else if (window.dataLayer) window.dataLayer.push({ event: 'article_helpful_click', article: pageSlug });
-    });
+    const dateSpan = [...metaRow.querySelectorAll('span')].find(s => /更新|updated|date/i.test(s.textContent));
+    if (dateSpan && dateSpan.nextSibling) metaRow.insertBefore(shareBtn, dateSpan.nextSibling);
+    else metaRow.appendChild(shareBtn);
 
     const copyToClipboard = url => {
       if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(url);

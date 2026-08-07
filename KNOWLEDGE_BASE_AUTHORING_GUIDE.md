@@ -37,15 +37,13 @@
 
 **阅读时间**：Insight 类型文章统一控制在 3–5 分钟阅读。`readingTime` 字段是人工控制的唯一入口，页面展示由 `article.js` 按固定规则自动处理：优先读取 metadata 中的 `readingTime`，否则解析页面现有阅读时间文本，并统一限制在 5 分钟以内（上限 5、下限 1），显示为「5 分钟阅读」或「5 min read」。不要自行标注「15 分钟阅读」之类的超长阅读时间，也不要依赖 AI 估算。
 
-## 文章互动（Helpful / Share）
+## 文章互动（Share）
 
-所有文章页会自动注入轻量互动区，位于文章 metadata 行内：metadata 靠左，Helpful/Share 靠右对齐，空间不足时自动换行，无需在 HTML 中手工添加：
+所有文章页会自动注入 Share 操作，位置在文章 metadata 行内、紧跟在「更新日期」之后（阅读时间 → 分类 → 更新日期 → Share），与 metadata 属于同一行内分组，无需在 HTML 中手工添加：
 
-- **Helpful**：匿名反馈，点击后「👍 Helpful」变为「✓ Helpful」，不显示数量、不要求登录、不建立评论；状态按文章保存在浏览器 localStorage。
 - **Share**：移动端支持 `navigator.share` 时调用系统分享，否则复制当前文章 URL 到剪贴板，并显示 2 秒「Link copied / 链接已复制」反馈。
-- **Analytics**：点击 Helpful 时发送 `article_helpful_click` 事件（gtag 或 dataLayer），事件携带 `article` 字段（当前页 slug）。
 
-这些组件由 `knowledge/article.js` 统一注入、`knowledge/article.css` 统一样式，新增文章自动继承，不要复制互动代码到单篇文章中。
+该按钮由 `knowledge/article.js` 统一注入、`knowledge/article.css` 统一样式，新增文章自动继承，不要复制分享代码到单篇文章中。
 
 > **脚本与样式版本参数**：文章页统一用 `<script src="article.js?v=YYYYMMDD-N"></script>` 和 `<link rel="stylesheet" href="article.css?v=YYYYMMDD-N">`（statistics/ 和 community/ 下为 `../knowledge/article.js?v=...`、`../knowledge/article.css?v=...`），版本号遵循全站资源惯例（如 `?v=20260807-2`），并在修改 `article.js`/`article.css` 时递增（当天第 N 次为 `-N`）。不要使用无版本号的引用：Service Worker 对 JS/CSS 走 stale-while-revalidate，无版本号会导致线上更新后浏览器仍命中旧缓存、新组件和新样式不出现。
 
