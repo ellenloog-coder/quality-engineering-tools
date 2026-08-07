@@ -19,4 +19,13 @@
     article.querySelectorAll('[data-en]').forEach(element=>{element.innerHTML=element.dataset.en});
   }
   list.insertBefore(article,list.firstElementChild);
+
+  const grr=document.createElement('a');
+  grr.className='article-card';grr.dataset.grrGaugeChange='';grr.href='/knowledge/grr-35-gauge-change.html';grr.dataset.enHref='/knowledge/grr-35-gauge-change-en.html';
+  grr.innerHTML='<div><span class="tag" data-en="Methodology &amp; Standards">方法论与标准解读</span><h2 data-en="Why does a GRR problem persist after replacing the gauge?">GRR 超标以后，为什么换了一台量具问题仍然存在？</h2><p data-en="Use variance components, sample selection, NDC and destructive-testing scenarios to find the right investigation path.">从方差分量、样品选择、NDC 与破坏性测试场景，理解 GRR 超标后的正确调查方向。</p></div><span class="meta"><span data-en="About 5 min read">约 5 分钟阅读</span><span class="meta-date" data-en="Published 2026-08-07">发布于 2026-08-07</span></span>';
+  if(document.documentElement.lang==='en'){
+    grr.href=grr.dataset.enHref;
+    grr.querySelectorAll('[data-en]').forEach(element=>{element.innerHTML=element.dataset.en});
+  }
+  list.insertBefore(grr,list.firstElementChild);
 })();
