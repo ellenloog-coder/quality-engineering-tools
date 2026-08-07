@@ -75,7 +75,7 @@
     shareSpan.textContent = shareLabel;
     shareBtn.append(shareIcon, shareSpan);
     row.append(helpfulBtn, shareBtn);
-    metaRow.insertAdjacentElement('afterend', row);
+    metaRow.appendChild(row);
 
     const helpfulKey = `blendex:helpful:${pageSlug}`;
     const setHelpful = pressed => {

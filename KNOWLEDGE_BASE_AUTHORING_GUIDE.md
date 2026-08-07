@@ -39,7 +39,7 @@
 
 ## 文章互动（Helpful / Share）
 
-所有文章页会自动注入轻量互动区，位于 metadata 与 Tags 之间，无需在 HTML 中手工添加：
+所有文章页会自动注入轻量互动区，位于文章 metadata 行内：metadata 靠左，Helpful/Share 靠右对齐，空间不足时自动换行，无需在 HTML 中手工添加：
 
 - **Helpful**：匿名反馈，点击后「👍 Helpful」变为「✓ Helpful」，不显示数量、不要求登录、不建立评论；状态按文章保存在浏览器 localStorage。
 - **Share**：移动端支持 `navigator.share` 时调用系统分享，否则复制当前文章 URL 到剪贴板，并显示 2 秒「Link copied / 链接已复制」反馈。
